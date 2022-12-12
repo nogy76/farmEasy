@@ -1,0 +1,99 @@
+:root{
+	--body-background-color: #f5f6f7;
+	--font-color: #4e4e4e;
+	--border-gray-color : #dadada;
+	--naver-green-color: #274001;
+	--naver-green-border-color: #274001;
+}
+
+
+body{
+	background:var(--body-background-color);
+}
+
+.main-container{
+	width:100%;
+	display:flex;
+	flex-direction:column;
+	align-items:center;
+	margin-top: 21px;
+}
+.main-container .main-wrap{
+	width:550px;
+
+}
+
+.main-container .main-wrap .logo-wrap{
+	padding-top:110px;
+    font-family: 'Nanum Gothic', cursive;
+    font-weight: 700;
+    font-size: 1.3em;
+    color: #274001;
+}
+
+
+.main-container .main-wrap header {
+	display:flex;	
+	flex-direction: column;
+	align-items: center;
+}
+
+.find-id-title {
+	width: 465px;
+	height :48px;
+	font-size: 20px;
+	background: #3155a4;
+	color: white;
+	border: solid 1px var(--naver-green-border-color);
+	margin-bottom: 10px;
+	line-height: 48px;
+	text-align: center;
+	margin-top: 65px;
+}
+
+.find-id-input-section-wrap{
+	padding-top: 60px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.find-id-input-wrap{
+	width: 465px;
+	height: 48px;
+	border: solid 1px var(	--border-gray-color );
+	background: white;
+}
+.password-wrap{
+	margin-top: 13px;
+}
+
+.find-id-input-wrap input{
+	border: none;
+	width:430px;
+	margin-top: 10px;
+	font-size: 14px;
+	margin-left: 10px;
+	height:30px;
+}
+
+.find-id-button-wrap {
+	padding-top: 13px;
+}
+
+.find-id-button-wrap input{
+	width: 150px;
+	height :48px;
+	font-size: 18px;
+	background: #3155a4;
+	color: white;
+	border: solid 1px var(--naver-green-border-color);
+    margin-bottom: 10px;
+	cursor: pointer;
+	border-radius: 10px;
+}
+
+.find-id-button-wrap:hover input{
+    background:#b87a10;
+    border:1px solid #b87a10;
+}

@@ -1,0 +1,152 @@
+*{
+    font-family: 'Nanum Gothic', cursive;
+   }
+   
+   .wd-basic-960{
+        width: 960px;
+    } 
+     
+   .mb-auto{
+        margin: 0px auto;
+    }
+    
+    #myPage_wrap{
+        width: 960px;
+        height: 20vh;
+    }
+
+    #myPage_wrap div{
+        display: flex;
+        float: left;
+        margin: 0 auto;
+    }
+
+    #myPage_title{
+        font-size: 1.2rem;
+        color: rgb(84, 84, 84);
+        width: 300px;
+    }
+
+
+    #myPage_title ul li:first-child{
+        font-size: 1.5rem;
+        color: #222;
+    }
+
+    #myPage_title ul li:nth-child(2){
+        margin-top: 20px;
+        font-size: 0.9rem;
+        color: #666;
+        cursor: pointer;
+        margin-left: 5px;
+    }
+
+    #myPage_title ul li:nth-child(3){
+        margin-top: 20px;
+        font-size: 0.9rem;
+        color: #666;
+        cursor: pointer;
+        margin-left: 5px;
+    }
+
+    #myPage_list{
+        width: 660px;
+        border: 1px solid #eee;
+        height: 140px;
+        font-size: 1rem;
+    }
+
+    #myPage_list .myPage_hi {
+        display: flex;
+        width: inherit;
+
+    }
+    
+    #myPage_list .myPage_hi img{
+        width: 70px;
+        height: 70px;
+        margin-top: 30px;
+        margin-left: 20px;
+    }
+
+
+    #myPage_list .myPage_hi li:nth-child(2){
+        margin-top: 40px;
+        line-height: 25px;
+        width: 395px;
+        padding-left:25px;
+    }
+
+
+    #myPage_list .myPage_hi li:nth-child(2) span{
+        font-weight: 700;
+    }
+
+    #myPage_list .myPage_hi li:nth-child(3){
+        text-align: center;
+        border-left: 1px solid #777;
+        height: 56px;
+        margin-top: 40px;
+        color: #777;
+        line-height: 30px;
+        width: 395px;
+    }
+
+
+    #myPage_list .myPage_hi li:nth-child(3) p{
+        color : #222;
+        font-weight: 700;
+    }
+
+
+    /* #myPage_showList_wrap 리스트 wrap */
+
+    #myPage_showList_wrap{
+        height: 500px;
+        display: flex;
+    }
+
+    #myPage_showList_wrap .wd-300{
+        width: 300px;
+        height: inherit;
+    }
+
+    #myPage_showList_wrap .list_wrap{
+        width: 660px;
+        height: inherit;
+    }
+
+    #myPage_showList_wrap .list_wrap h3{
+        font-size: 22px;
+    }
+
+    #myPage_showList_wrap .list_wrap .myPage_showList table{
+        width: 650px;
+        border-collapse: collapse;
+        margin-top: 20px;
+        font-size: 14px;
+        color: #777;
+    }
+
+    .myPage_showList table tr{
+        text-align: center;
+        border-bottom: 1px solid #eee;
+    }
+
+    .myPage_showList table tr:first-child{
+        border-top: 2px solid #222;
+        border-bottom: none;
+    }
+
+
+    .myPage_showList table tr:first-child td{
+        border-right: 1px solid #eee;
+        border-left: 1px solid #eee;
+        font-size: 16px;
+        font-weight: 600;
+        color: #333;
+    }
+
+    .myPage_showList table tr td{
+        padding: 10px 0;
+    }
