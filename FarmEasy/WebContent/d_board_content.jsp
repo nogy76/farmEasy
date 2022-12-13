@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="com.farmeasy.model.*" %>
+	
 
 <%
 	FarmEasyDao farmEasyDao = FarmEasyDao.getInstance();
 	BoardDto boardDto = farmEasyDao.getBoardDB(Integer.parseInt(request.getParameter("board_id")));
+	BoardFileDto boardFileDto = farmEasyDao.getBoardFileDB(Integer.parseInt(request.getParameter("board_id")));
 	session.setAttribute("updateDeleteBoardId", Integer.parseInt(request.getParameter("board_id")));
 %>
 
@@ -33,6 +35,7 @@
 		window.open("e_signup.jsp", "popS",
 				"width=750, height=800, left=800, top=50");
 	}
+	
 	function deleteCheck() {
 		result = confirm("정말로 게시글을 삭제하시겠습니까?");
 		
@@ -79,8 +82,8 @@
 		</ul>
 		<!-- icon -->
 		<ul class="navbar-icon">
-			<li><a href="#" onclick="popLogin()">로그인</a></li>
-			<li><a href="#" onclick="popSignup()">회원가입</a></li>
+			<li><a href="e_login.jsp">로그인</a></li>
+			<li><a href="e_signup.jsp">회원가입</a></li>
 		</ul>
 		<a href="#" class="navbar-more"> <i class='fa fa-bars'
 			style='color: white; margin-top: 14px;'></i>
@@ -93,14 +96,24 @@
 			<h3><%=boardDto.getBoard_title() %></h3>
 			<div>
 				<ul>
+			<%
+				if(boardDto.getUpdate_date() != null) {
+			%>
+					<li>수정일 : <%=boardDto.getUpdate_date() %></li>
+			<%		
+				} else {
+			%>					
 					<li>등록일 : <%=boardDto.getInsert_date() %></li>
+			<%
+				}			
+			%>
 					<li>작성자 : <%=boardDto.getUser_name() %> &nbsp;|&nbsp; 조회수 : <%=boardDto.getBoard_hits() %></li>
 				</ul>
 			</div>
 			<p class="mt-4">
 				<pre><%=boardDto.getBoard_content() %></pre>
 			</p>
-			<p class="post_up">포스터 최종 이미지.jpeg [1721600 byte]</p>
+			<p class="post_up"><a href="FarmEasy/WebContent/upload/<%=boardFileDto.getBoard_file_name()%>" download="<%=boardFileDto.getBoard_file_realName()%>"><%=boardFileDto.getBoard_file_name() %> [<%=boardFileDto.getBoard_file_byte() %> byte]</a></p>
 			
 			<div class="board_write">
 				<a href="d_board_update.jsp"><button type="button" id="board_return">수정</button></a>

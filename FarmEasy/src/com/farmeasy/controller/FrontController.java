@@ -1,7 +1,7 @@
 package com.farmeasy.controller;
 
-import java.io.IOException;
-import java.util.ArrayList;
+import java.io.*;
+import java.util.*;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,6 +13,8 @@ import javax.servlet.http.HttpSession;
 
 import com.farmeasy.model.*;
 import com.farmeasy.service.*;
+import com.oreilly.servlet.*;
+import com.oreilly.servlet.multipart.*;
 
 
 /**
@@ -58,18 +60,18 @@ public class FrontController extends HttpServlet {
 			
 			System.out.println("insert.do 입니다.");
 			
-			BoardDto insBoard = new BoardDto();
-//			insBoard.setUser_id(Integer.parseInt(request.getParameter("user_id")));
-			insBoard.setUser_name(request.getParameter("user_name"));
-			
-			insBoard.setBoard_title(request.getParameter("board_title"));
-			insBoard.setBoard_content(request.getParameter("board_content"));
-			
-			request.setAttribute("insBoard", insBoard);
-			
-			InsertService insertService = new InsertServiceImpl();
-			insertService.execute(request, response);
-			response.sendRedirect("/FarmEasy/list.do");
+//			BoardDto insBoard = new BoardDto();
+////			insBoard.setUser_id(Integer.parseInt(request.getParameter("user_id")));
+//			insBoard.setUser_name(request.getParameter("user_name"));
+//			
+//			insBoard.setBoard_title(request.getParameter("board_title"));
+//			insBoard.setBoard_content(request.getParameter("board_content"));
+//			
+//			request.setAttribute("insBoard", insBoard);
+//			
+//			InsertService insertService = new InsertServiceImpl();
+//			insertService.execute(request, response);
+//			response.sendRedirect("/FarmEasy/list.do");
 		
 		} else if(command.equals("/list.do")) {
 			
@@ -113,6 +115,79 @@ public class FrontController extends HttpServlet {
 			deleteService.execute(request, response);
 			response.sendRedirect("/FarmEasy/list.do");
 			
+		} else if(command.equals("/upload.do")) {
+			
+			System.out.println("upload.do 입니다.");
+			
+			BoardDto boardDto = new BoardDto();			
+			BoardFileDto boardFileDto = new BoardFileDto();
+
+			//파일 경로
+			String saveFolder = "C:\\Users\\OHR\\git\\farmEasy\\FarmEasy\\WebContent\\upload";
+			int maxSize = 5 * 1024 * 1024;
+			
+			try {
+				MultipartRequest multi = null;
+				multi = new MultipartRequest(request, saveFolder, maxSize, "utf-8", new DefaultFileRenamePolicy());
+				
+				boardDto.setUser_name(multi.getParameter("user_name"));
+				boardDto.setBoard_title(multi.getParameter("board_title"));
+				boardDto.setBoard_content(multi.getParameter("board_content"));
+				request.setAttribute("boardDto", boardDto);
+				
+				boardFileDto.setBoard_file_name(multi.getFilesystemName("board_file"));
+				boardFileDto.setBoard_file_realName(multi.getOriginalFileName("board_file"));
+				boardFileDto.setBoard_file_byte(String.valueOf((multi.getFile("board_file").length())));
+				request.setAttribute("boardFileDto", boardFileDto);
+				
+				UploadService uploadService = new UploadServiceImpl();
+				uploadService.execute(request, response);
+				
+				response.sendRedirect("/FarmEasy/list.do");
+				
+			} catch(IOException e) {
+				System.out.println("upload 에러 발생!");
+				e.printStackTrace();
+			} catch(Exception e2) {
+				e2.printStackTrace();
+			}
+			
+		} else if(command.equals("/checkId.do")) {
+			
+			String m_id = request.getParameter("m_id");
+			System.out.println("id를 가져옴 : " + m_id);
+			
+			request.setAttribute("m_id", m_id);
+			CheckIdService checkIdService = new CheckIdServiceImpl();
+			if(checkIdService.execute(request, response) == 1) {
+				request.setAttribute("check", 1);
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("e_idCheck.jsp");
+				requestDispatcher.forward(request, response);
+			}else {
+				response.sendRedirect("e_idCheck.jsp");
+				//메인페이지로 떨궈주면 되고..
+			}
+			
+		} else if(command.equals("/memberInsert.do")) {
+			System.out.println("insert.do 입니다");
+			
+			FarmDto farmDto = new FarmDto();
+			
+			
+			farmDto.setM_name(request.getParameter("m_name"));
+			farmDto.setM_Id(request.getParameter("m_id"));
+			farmDto.setM_pw(request.getParameter("m_pw"));
+			farmDto.setM_email(request.getParameter("m_email"));
+			farmDto.setM_mobile(request.getParameter("m_mobile"));
+			farmDto.setM_authority(request.getParameter("m_authority"));
+			farmDto.setM_date(request.getParameter("m_date"));
+			
+			request.setAttribute("farmDto", farmDto);
+			
+			
+			MemberInsertService memberInsertService = new MemberInsertServiceImpl();
+			memberInsertService.execute(request, response);
+			response.sendRedirect("/FarmEasy/index.jsp");
 		}
 	}
 }

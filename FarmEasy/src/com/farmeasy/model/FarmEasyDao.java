@@ -3,8 +3,6 @@ package com.farmeasy.model;
 import java.sql.*;
 import javax.sql.*;
 
-import org.eclipse.jdt.internal.compiler.ast.TrueLiteral;
-
 import javax.naming.*;
 import java.util.*;
 
@@ -218,18 +216,18 @@ public class FarmEasyDao {
 	}
 	
 	//파일 업로드
-	public int uploadFile(int board_id, String board_file_name, String board_file_realName) {
+	public void uploadFile(BoardFileDto boardFileDto) {
 		Connection connection = null;
 		PreparedStatement pstmt = null;
 				
 		try {
 			connection = getConnection();
-			pstmt = connection.prepareStatement("insert into fe_board_file(board_file_id, board_id, board_file_name, board_file_realName) values(fe_board_file_seq.nextval,?,?,?");
-			pstmt.setInt(1, board_id);
-			pstmt.setString(2, board_file_name);
-			pstmt.setString(3, board_file_realName);
+			pstmt = connection.prepareStatement("insert into fe_board_file(board_file_id, board_id, board_file_name, board_file_realName, board_file_byte) values(fe_board_file_seq.nextval,fe_board_seq.currval,?,?,?)");
+			pstmt.setString(1, boardFileDto.getBoard_file_name());
+			pstmt.setString(2, boardFileDto.getBoard_file_realName());
+			pstmt.setString(3, boardFileDto.getBoard_file_byte());
 			
-			return pstmt.executeUpdate();
+			pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
 			System.out.println("uploadFile() 예외 발생");
@@ -242,8 +240,45 @@ public class FarmEasyDao {
 				e2.printStackTrace();
 			}
 		}
+	}
+	
+	public BoardFileDto getBoardFileDB(int board_id) {
+		BoardFileDto boardFileDto = new BoardFileDto();
 		
-		return -1;
+		Connection connection = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			connection = getConnection();
+			pstmt = connection.prepareStatement("select * from fe_board_file where board_id=?");
+			pstmt.setInt(1, board_id);
+			rs = pstmt.executeQuery();
+			
+			//데이터 하나만 끌고 오기에 rs.next()를 한 번만 실행
+			rs.next();
+			
+//			int user_id = rs.getInt("user_id");
+			String board_file_name = rs.getString("board_file_name");
+			String board_file_realName = rs.getString("board_file_realName");
+			String board_file_byte = rs.getString("board_file_byte");
+			
+			boardFileDto = new BoardFileDto(board_id, board_file_name, board_file_realName, board_file_byte);
+			
+		} catch (SQLException e) {
+			System.out.println("getBoardDB 예외 발생!");
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				pstmt.close();
+				connection.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+				
+		return boardFileDto;
 	}
 	
 	

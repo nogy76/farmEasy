@@ -61,8 +61,8 @@
 		</ul>
 		<!-- icon -->
 		<ul class="navbar-icon">
-			<li><a href="#" onclick="popLogin()">로그인</a></li>
-			<li><a href="#" onclick="popSignup()">회원가입</a></li>
+			<li><a href="e_login.jsp">로그인</a></li>
+			<li><a href="e_signup.jsp">회원가입</a></li>
 		</ul>
 		<a href="#" class="navbar-more"> <i class='fa fa-bars'
 			style='color: white; margin-top: 14px;'></i>

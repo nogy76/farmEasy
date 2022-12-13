@@ -9,7 +9,7 @@ CREATE TABLE fe_board (
 --    insert_date DATE DEFAULT sysdate,
     insert_date VARCHAR2(10) DEFAULT TO_CHAR(sysdate, 'yyyy.mm.dd'),
 
-    update_date VARCHAR2(10) DEFAULT NULL,
+    update_date VARCHAR2(10) DEFAULT TO_CHAR(sysdate, 'yyyy.mm.dd'),
     board_hits INT DEFAULT 0
 );
 
@@ -25,8 +25,8 @@ CREATE TABLE fe_reply (
     reply_id INT PRIMARY KEY,
     board_id INT NOT NULL,
     reply_content VARCHAR2(100) DEFAULT NULL,
-    insert_date DATE DEFAULT sysdate,
-    update_date DATE DEFAULT NULL,
+    insert_date VARCHAR2(10) DEFAULT TO_CHAR(sysdate, 'yyyy.mm.dd'),
+    update_date VARCHAR2(10) DEFAULT TO_CHAR(sysdate, 'yyyy.mm.dd'),
     parent_reply_id INT DEFAULT 0
 );
 
@@ -43,7 +43,8 @@ CREATE TABLE fe_board_file (
     board_file_id INT PRIMARY KEY,
     board_id INT NOT NULL,
     board_file_name VARCHAR2(100) NOT NULL,
-    board_file_realName VARCHAR2(100)
+    board_file_realName VARCHAR2(100),
+    board_file_byte VARCHAR2(20)
 );
 
 create sequence fe_board_file_seq start with 1 increment by 1;

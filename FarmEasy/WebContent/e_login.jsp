@@ -14,7 +14,7 @@
 <!-- <a href='https://.pngtree.com/so/항목의'>항목의 png에서 .pngtree.com/</a> -->
 <style>
 </style>
-<script>
+<!-- <script>
 	function loginFunction() {
 		alert("로그인 성공");
 		opener.parent.location = 'index_login.jsp';
@@ -37,7 +37,9 @@
 		window.open("e_signup.jsp", "popS",
 				"width=750, height=800, left=800, top=50");
 	}
-</script>
+</script> -->
+
+
 </head>
 
 <div class="main-container">
@@ -47,16 +49,16 @@
 				<h1>로그인</h1>
 			</div>
 		</header>
-		<form action="login.jsp">
+		<form action="e_login_check.jsp" name="login_check" id="login_check" >
 			<section class="login-input-section-wrap">
 				<div class="login-input-wrap">
-					<input placeholder="아이디" type="text"></input>
+					<input placeholder="아이디" type="text" name="m_id">
 				</div>
 				<div class="login-input-wrap password-wrap">
-					<input placeholder="비밀번호" type="password"></input>
+					<input placeholder="비밀번호" type="password" name="m_pw">
 				</div>
 				<div class="login-button-wrap">
-					<input type="submit" value="로그인" onclick="loginFunction()"></input>
+					<input type="submit" value="로그인"></input>
 					<!-- <button>로그인</button> -->
 				</div>
 				<ul class="find_wrap" id="find_wrap">
