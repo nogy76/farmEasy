@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="java.util.*, com.farmeasy.model.*"%>
+	pageEncoding="UTF-8" import="java.util.*, com.farmeasy.model.board.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>	
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,17 +17,6 @@
 	rel="stylesheet" />
 <script src="https://kit.fontawesome.com/77e29b57dd.js"
 	crossorigin="anonymous"></script>
-<script>
-	function popLogin() {
-		window.open("e_login.jsp", "popL",
-				"width=650, height=650, left=800, top=50");
-	}
-
-	function popSignup() {
-		window.open("e_signup.jsp", "popS",
-				"width=750, height=800, left=800, top=50");
-	}
-</script>
 <script src="js/index.js" defer></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -53,16 +43,24 @@
 					<li><a href="b_jeolla_info.jsp">전라도 정책</a></li>
 				</ul></li>
 			<li class="depth1"><a href="c_bigdata.jsp">농산물 빅데이터</a></li>
-			<li class="depth1"><a href="/FarmEasy/list.do">게시판</a>
+			<li class="depth1"><a href="/FarmEasy/list.board">게시판</a>
 				<ul class="submenu">
-					<li><a href="/FarmEasy/list.do">게시판</a></li>
+					<li><a href="/FarmEasy/list.board">게시판</a></li>
 					<li><a href="d_notice.jsp">갤러리</a></li>
 				</ul></li>
 		</ul>
 		<!-- icon -->
 		<ul class="navbar-icon">
-			<li><a href="e_login.jsp">로그인</a></li>
-			<li><a href="e_signup.jsp">회원가입</a></li>
+		<c:choose>
+		<c:when test="${sessionScope.m_id eq null}">
+				<li><a href="e_login.jsp">로그인</a></li>
+				<li><a href="e_signup.jsp">회원가입</a></li>
+			</c:when>
+			<c:otherwise>
+				<li><a href="e_logout.jsp">로그아웃</a></li>
+				<li><a href="f_myPage.jsp">${m_id} 님</a></li>
+			</c:otherwise>
+		</c:choose>
 		</ul>
 		<a href="#" class="navbar-more"> <i class='fa fa-bars'
 			style='color: white; margin-top: 14px;'></i>

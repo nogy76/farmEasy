@@ -1,13 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<%@ page import = "com.farmeasy.model.FarmDao" %>
+<%@ page import = "com.farmeasy.model.member.*" %>
 <%@ page import = "java.io.PrintWriter" %>
 <% request.setCharacterEncoding("UTF-8"); %>
-<jsp:useBean id="user" class="com.farmeasy.model.FarmDto" scope="page" />
+<jsp:useBean id="user" class="com.farmeasy.model.member.FarmDto" scope="page" />
 <jsp:setProperty name="user" property="m_id" />
 <jsp:setProperty name="user" property="m_pw" />
-<%-- <jsp:setProperty name="user" property="m_pw" /> --%>
 <!DOCTYPE html>
 <html>
 <head>

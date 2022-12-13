@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,8 +13,7 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap"
 	rel="stylesheet" />
-<script src="https://kit.fontawesome.com/77e29b57dd.js"
-	crossorigin="anonymous">
+<script src="https://kit.fontawesome.com/77e29b57dd.js" crossorigin="anonymous">
 </script>
 <script src="js/index2.js"></script>
 <script src="js/index.js" defer></script>
@@ -40,17 +40,25 @@
 					<li><a href="b_jeolla_info.jsp">전라도 정책</a></li>
 				</ul></li>
 			<li class="depth1"><a href="c_bigdata.jsp">농산물 빅데이터</a></li>
-			<li class="depth1"><a href="/FarmEasy/list.do">게시판</a>
+			<li class="depth1"><a href="/FarmEasy/list.board">게시판</a>
 				<ul class="submenu">
-					<li><a href="/FarmEasy/list.do">게시판</a></li>
+					<li><a href="/FarmEasy/list.board">게시판</a></li>
 					<li><a href="d_notice.jsp">갤러리</a></li>
 				</ul>
 			</li>
 		</ul>
 		<!-- icon -->
 		<ul class="navbar-icon">
-			<li><a href="e_login.jsp">로그인</a></li>
-			<li><a href="e_signup.jsp">회원가입</a></li>
+		<c:choose>
+		<c:when test="${sessionScope.m_id eq null}">
+				<li><a href="e_login.jsp">로그인</a></li>
+				<li><a href="e_signup.jsp">회원가입</a></li>
+			</c:when>
+			<c:otherwise>
+				<li><a href="e_logout.jsp">로그아웃</a></li>
+				<li><a href="f_myPage.jsp">${m_id} 님</a></li>
+			</c:otherwise>
+		</c:choose>
 		</ul>
 		<a href="#" class="navbar-more"> <i class='fa fa-bars'
 			style='color: white; margin-top: 14px;'></i>

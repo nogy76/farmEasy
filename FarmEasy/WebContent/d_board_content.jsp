@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="com.farmeasy.model.*" %>
-	
+	pageEncoding="UTF-8" import="com.farmeasy.model.board.*" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>		
 
 <%
-	FarmEasyDao farmEasyDao = FarmEasyDao.getInstance();
-	BoardDto boardDto = farmEasyDao.getBoardDB(Integer.parseInt(request.getParameter("board_id")));
-	BoardFileDto boardFileDto = farmEasyDao.getBoardFileDB(Integer.parseInt(request.getParameter("board_id")));
-	session.setAttribute("updateDeleteBoardId", Integer.parseInt(request.getParameter("board_id")));
+		BoardDao boardDao = BoardDao.getInstance();
+		BoardDto boardDto = boardDao.getBoardDB(Integer.parseInt(request.getParameter("board_id")));
+		BoardFileDto boardFileDto = boardDao.getBoardFileDB(Integer.parseInt(request.getParameter("board_id")));
+		session.setAttribute("updateDeleteBoardId", Integer.parseInt(request.getParameter("board_id")));
 %>
 
 <!DOCTYPE html>
@@ -25,22 +25,12 @@
 	rel="stylesheet" />
 <script src="https://kit.fontawesome.com/77e29b57dd.js"
 	crossorigin="anonymous"></script>
-<script>
-	function popLogin() {
-		window.open("e_login.jsp", "popL",
-				"width=650, height=650, left=800, top=50");
-	}
-
-	function popSignup() {
-		window.open("e_signup.jsp", "popS",
-				"width=750, height=800, left=800, top=50");
-	}
-	
+<script>	
 	function deleteCheck() {
 		result = confirm("정말로 게시글을 삭제하시겠습니까?");
 		
 		if(result) {
-			document.FEForm1.action="delete.do";
+			document.FEForm1.action="delete.board";
 			document.FEForm1.submit();
 		} else {
 			return;
@@ -74,21 +64,30 @@
 					<li><a href="b_jeolla_info.jsp">전라도 정책</a></li>
 				</ul></li>
 			<li class="depth1"><a href="c_bigdata.jsp">농산물 빅데이터</a></li>
-			<li class="depth1"><a href="/FarmEasy/list.do">게시판</a>
+			<li class="depth1"><a href="/FarmEasy/list.board">게시판</a>
 				<ul class="submenu">
-					<li><a href="/FarmEasy/list.do">게시판</a></li>
+					<li><a href="/FarmEasy/list.board">게시판</a></li>
 					<li><a href="d_notice.jsp">갤러리</a></li>
 				</ul></li>
 		</ul>
 		<!-- icon -->
 		<ul class="navbar-icon">
-			<li><a href="e_login.jsp">로그인</a></li>
-			<li><a href="e_signup.jsp">회원가입</a></li>
+		<c:choose>
+		<c:when test="${sessionScope.m_id eq null}">
+				<li><a href="e_login.jsp">로그인</a></li>
+				<li><a href="e_signup.jsp">회원가입</a></li>
+			</c:when>
+			<c:otherwise>
+				<li><a href="e_logout.jsp">로그아웃</a></li>
+				<li><a href="f_myPage.jsp">${m_id} 님</a></li>
+			</c:otherwise>
+		</c:choose>
 		</ul>
 		<a href="#" class="navbar-more"> <i class='fa fa-bars'
 			style='color: white; margin-top: 14px;'></i>
 		</a>
 	</nav>
+	
 	<div id="sub-title" class="wd-basic-960 mb-auto">게시판</div>
 	<form name="FEForm1" method="post">
 		<div class="wd-basic-960 mb-auto mt-5" id="info-bottom"
@@ -110,15 +109,22 @@
 					<li>작성자 : <%=boardDto.getUser_name() %> &nbsp;|&nbsp; 조회수 : <%=boardDto.getBoard_hits() %></li>
 				</ul>
 			</div>
-			<p class="mt-4">
-				<pre><%=boardDto.getBoard_content() %></pre>
-			</p>
-			<p class="post_up"><a href="FarmEasy/WebContent/upload/<%=boardFileDto.getBoard_file_name()%>" download="<%=boardFileDto.getBoard_file_realName()%>"><%=boardFileDto.getBoard_file_name() %> [<%=boardFileDto.getBoard_file_byte() %> byte]</a></p>
-			
+			<p class="mt-4"><pre><%=boardDto.getBoard_content() %></pre></p>
+			<%
+				if(boardFileDto.getBoard_file_name() != null) {
+			%>
+				<p class="post_up"><a href="FarmEasy/WebContent/upload/<%=boardFileDto.getBoard_file_name()%>" download="<%=boardFileDto.getBoard_file_realName()%>"><%=boardFileDto.getBoard_file_name() %> [<%=boardFileDto.getBoard_file_byte() %> byte]</a></p>
+			<%
+				} else {
+			%>	
+				<p class="post_up">파일 없음 [0 byte]</p>			
+			<%
+				}
+			%>			
 			<div class="board_write">
 				<a href="d_board_update.jsp"><button type="button" id="board_return">수정</button></a>
 				<a href="#"><button type="button" id="board_return" onclick="deleteCheck()">삭제</button></a>
-				<a href="/FarmEasy/list.do"><button type="button" id="board_return">목록</button></a>
+				<a href="/FarmEasy/list.board"><button type="button" id="board_return">목록</button></a>
 			</div>
 		</div>
 	</form>

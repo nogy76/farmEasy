@@ -8,14 +8,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>귀농하여 지방살리기</title>
   <link rel="stylesheet" href="css/pop_info.css">
-  <!-- <link rel="stylesheet" href="../css/layout.css"> -->
   <link rel="stylesheet" href="css/header-footer.css">
   <link href="images/favi.png" rel="shortcut icon" type="image/x-icon">
-  <!-- <a href='https://.pngtree.com/so/항목의'>항목의 png에서 .pngtree.com/</a> -->
 </head>
 
 <body>
-  <form action="signup.jsp">
+  <form>
     <div class="main-container">
       <div class="main-wrap">
         <fieldset id="signup_fieldset">

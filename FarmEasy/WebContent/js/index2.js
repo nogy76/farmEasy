@@ -19,12 +19,3 @@ function openCity(evt, cityName) {
     document.getElementById(cityName).style.display = "block";
     evt.currentTarget.className += " active";
 }
-
-function popLogin() {
-    window.open("e_login.jsp","popL","width=650, height=450, left=400, top=150");
-  }
-  
-function popSignup() {
-    window.open("e_signup.jsp","popS","width=750, height=700, left=400, top=150");
- }
-  
