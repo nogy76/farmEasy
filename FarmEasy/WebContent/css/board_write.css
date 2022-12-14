@@ -22,9 +22,10 @@
     
     
     #sub-title{
-        background:url('../images/sta-banner.jpg');
+        /* background:url('../images/sta-banner.jpg'); */
         /* background-color: #4e79b8; */
         /* background-color: #e8f6fb; */
+        border-bottom: 1px dotted #3155a4;
         height: 116px;
         text-align: center;
         line-height: 116px;
@@ -82,6 +83,11 @@
         border-top:2px solid #222;
         padding: 12px 0;
         border-right: 1px solid #e8e6e6;
+    }
+    
+    table tr:nth-child(2) td div span {
+    	float: left;
+    	margin-left: 20px;
     }
 
     table tr:nth-child(3) input{

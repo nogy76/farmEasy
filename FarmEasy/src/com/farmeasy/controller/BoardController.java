@@ -101,7 +101,10 @@ public class BoardController extends HttpServlet {
 			
 			UpdateService updateService = new UpdateServiceImpl();
 			updateService.execute(request, response);
-			response.sendRedirect("/FarmEasy/list.board");
+//			response.sendRedirect("/FarmEasy/list.board");
+						
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/d_board_content.jsp?board_id="+updateBoardId);
+			dispatcher.forward(request, response);
 			
 		//게시글 삭제 커맨드
 		} else if(command.equals("/delete.board")) {
@@ -123,35 +126,42 @@ public class BoardController extends HttpServlet {
 			
 			BoardDto boardDto = new BoardDto();			
 			BoardFileDto boardFileDto = new BoardFileDto();
-
+			
 			//파일 경로
-			String saveFolder = "C:\\Users\\OHR\\git\\farmEasy\\FarmEasy\\WebContent\\upload";
+//			String saveFolder = "C:\\Users\\OHR\\git\\farmEasy\\FarmEasy\\WebContent\\upload";
+			String saveFolder = request.getSession().getServletContext().getRealPath("/upload");
 			int maxSize = 5 * 1024 * 1024;
 			
 			try {
 				MultipartRequest multi = null;
 				multi = new MultipartRequest(request, saveFolder, maxSize, "utf-8", new DefaultFileRenamePolicy());
 				
-				boardDto.setUser_name(multi.getParameter("user_name"));
+				HttpSession session = request.getSession();
+				
+				boardDto.setUser_idName((String)session.getAttribute("m_id"));
 				boardDto.setBoard_title(multi.getParameter("board_title"));
 				boardDto.setBoard_content(multi.getParameter("board_content"));
 				request.setAttribute("boardDto", boardDto);
 				
-					boardFileDto.setBoard_file_name(multi.getFilesystemName("board_file"));
-					boardFileDto.setBoard_file_realName(multi.getOriginalFileName("board_file"));
-					String boardFile = multi.getOriginalFileName("board_file");
-				if(boardFile != null) {
-					boardFileDto.setBoard_file_byte(boardFile);
+				boardFileDto.setBoard_file_name(multi.getFilesystemName("board_file"));
+				boardFileDto.setBoard_file_realName(multi.getOriginalFileName("board_file"));
+				
+				if(multi.getOriginalFileName("board_file") != null) {
+				
+					boardFileDto.setBoard_file_byte(String.valueOf(multi.getFile("board_file").length()));
 					request.setAttribute("boardFileDto", boardFileDto);
 					
 					UploadService uploadService = new UploadServiceImpl();
 					uploadService.execute(request, response);
 					
 					response.sendRedirect("/FarmEasy/list.board");
+				
 				} else {
+				
 					InsertService insertService = new InsertServiceImpl();
 					insertService.execute(request, response);
 					response.sendRedirect("/FarmEasy/list.board");
+				
 				}
 				
 				
@@ -161,6 +171,6 @@ public class BoardController extends HttpServlet {
 			} catch(Exception e2) {
 				e2.printStackTrace();
 			}
-		} 
+		}
 	}
 }

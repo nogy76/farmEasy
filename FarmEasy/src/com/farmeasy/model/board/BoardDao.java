@@ -57,8 +57,8 @@ public class BoardDao {
 		
 		try {
 			connection = getConnection();
-			pstmt = connection.prepareStatement("insert into fe_board(board_id, user_name, board_title, board_content) values(fe_board_seq.nextval,?,?,?)");
-			pstmt.setString(1, boardDto.getUser_name());
+			pstmt = connection.prepareStatement("insert into fe_board(board_id, user_idName, board_title, board_content) values(fe_board_seq.nextval,?,?,?)");
+			pstmt.setString(1, boardDto.getUser_idName());
 			pstmt.setString(2, boardDto.getBoard_title());
 			pstmt.setString(3, boardDto.getBoard_content());
 			
@@ -145,7 +145,7 @@ public class BoardDao {
 			rs.next();
 			
 //			int user_id = rs.getInt("user_id");
-			String user_name = rs.getString("user_name");
+			String user_idName = rs.getString("user_idName");
 			
 			String fe_type = rs.getString("fe_type");
 			String board_title = rs.getString("board_title");
@@ -154,7 +154,7 @@ public class BoardDao {
 			String update_date = rs.getString("update_date");
 			int board_hits = rs.getInt("board_hits");
 			
-			boardDto = new BoardDto(board_id, user_name, fe_type, board_title, board_content, insert_date, update_date, board_hits);
+			boardDto = new BoardDto(board_id, user_idName, fe_type, board_title, board_content, insert_date, update_date, board_hits);
 			
 		} catch (SQLException e) {
 			System.out.println("getBoardDB 예외 발생!");
@@ -188,7 +188,7 @@ public class BoardDao {
 			while(rs.next()) {
 				int board_id = rs.getInt("board_id");
 //				int user_id = rs.getInt("user_id");
-				String user_name = rs.getString("user_name");
+				String user_idName = rs.getString("user_idName");
 				
 				String fe_type = rs.getString("fe_type");
 				String board_title = rs.getString("board_title");
@@ -197,7 +197,7 @@ public class BoardDao {
 				String update_date = rs.getString("update_date");
 				int board_hits = rs.getInt("board_hits");
 				
-				boardList.add(new BoardDto(board_id, user_name, fe_type, board_title, board_content, insert_date, update_date, board_hits));
+				boardList.add(new BoardDto(board_id, user_idName, fe_type, board_title, board_content, insert_date, update_date, board_hits));
 			}
 		} catch (SQLException e) {
 			System.out.println("getList() 예외 발생");
@@ -256,14 +256,16 @@ public class BoardDao {
 			rs = pstmt.executeQuery();
 			
 			//데이터 하나만 끌고 오기에 rs.next()를 한 번만 실행
-			rs.next();
+			if(rs.next()) {
+//				int user_id = rs.getInt("user_id");
+				String board_file_name = rs.getString("board_file_name");
+				String board_file_realName = rs.getString("board_file_realName");
+				String board_file_byte = rs.getString("board_file_byte");
+				
+				boardFileDto = new BoardFileDto(board_id, board_file_name, board_file_realName, board_file_byte);
+
+			}
 			
-//			int user_id = rs.getInt("user_id");
-			String board_file_name = rs.getString("board_file_name");
-			String board_file_realName = rs.getString("board_file_realName");
-			String board_file_byte = rs.getString("board_file_byte");
-			
-			boardFileDto = new BoardFileDto(board_id, board_file_name, board_file_realName, board_file_byte);
 			
 		} catch (SQLException e) {
 			System.out.println("getBoardDB 예외 발생!");

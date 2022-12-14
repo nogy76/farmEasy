@@ -1,7 +1,8 @@
 CREATE TABLE fe_board (
     board_id INT PRIMARY KEY,
 --    user_id INT NOT NULL,
-    user_name VARCHAR2(10) NOT NULL,
+--    user_name VARCHAR2(10) NOT NULL,
+    user_idName VARCHAR2(20) NOT NULL,    
     
     fe_type VARCHAR2(3) DEFAULT 'N',
     board_title VARCHAR2(100) NOT NULL,
@@ -17,7 +18,7 @@ create sequence fe_board_seq start with 1 increment by 1;
 
 Drop table fe_board;
 
-drop SEQUENCE fe_seq;
+drop SEQUENCE fe_board_seq;
 
 
 --

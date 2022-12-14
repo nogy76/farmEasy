@@ -7,6 +7,10 @@
 		BoardDto boardDto = boardDao.getBoardDB(Integer.parseInt(request.getParameter("board_id")));
 		BoardFileDto boardFileDto = boardDao.getBoardFileDB(Integer.parseInt(request.getParameter("board_id")));
 		session.setAttribute("updateDeleteBoardId", Integer.parseInt(request.getParameter("board_id")));
+		String userIdName = "";
+		if(session.getAttribute("m_id") != null) {
+			userIdName = (String)session.getAttribute("m_id");			
+		}
 %>
 
 <!DOCTYPE html>
@@ -89,7 +93,7 @@
 	</nav>
 	
 	<div id="sub-title" class="wd-basic-960 mb-auto">게시판</div>
-	<form name="FEForm1" method="post">
+	<form name="FEForm1">
 		<div class="wd-basic-960 mb-auto mt-5" id="info-bottom"
 			style="height: auto">
 			<h3><%=boardDto.getBoard_title() %></h3>
@@ -104,16 +108,16 @@
 			%>					
 					<li>등록일 : <%=boardDto.getInsert_date() %></li>
 			<%
-				}			
+				}
 			%>
-					<li>작성자 : <%=boardDto.getUser_name() %> &nbsp;|&nbsp; 조회수 : <%=boardDto.getBoard_hits() %></li>
+					<li>작성자 ID : <%=boardDto.getUser_idName() %> &nbsp;|&nbsp; 조회수 : <%=boardDto.getBoard_hits() %></li>
 				</ul>
 			</div>
 			<p class="mt-4"><pre><%=boardDto.getBoard_content() %></pre></p>
 			<%
 				if(boardFileDto.getBoard_file_name() != null) {
 			%>
-				<p class="post_up"><a href="FarmEasy/WebContent/upload/<%=boardFileDto.getBoard_file_name()%>" download="<%=boardFileDto.getBoard_file_realName()%>"><%=boardFileDto.getBoard_file_name() %> [<%=boardFileDto.getBoard_file_byte() %> byte]</a></p>
+				<p class="post_up"><a href="upload/<%=boardFileDto.getBoard_file_name()%>" download="<%=boardFileDto.getBoard_file_name() %>"><%=boardFileDto.getBoard_file_name() %> [<%=boardFileDto.getBoard_file_byte() %> byte]</a></p>
 			<%
 				} else {
 			%>	
@@ -122,21 +126,32 @@
 				}
 			%>			
 			<div class="board_write">
+			
+			<%
+				if(userIdName.equals(boardDto.getUser_idName())) {
+			%>
 				<a href="d_board_update.jsp"><button type="button" id="board_return">수정</button></a>
 				<a href="#"><button type="button" id="board_return" onclick="deleteCheck()">삭제</button></a>
 				<a href="/FarmEasy/list.board"><button type="button" id="board_return">목록</button></a>
+			<%
+				} else {
+			%>					
+				<a href="/FarmEasy/list.board"><button type="button" id="board_return">목록</button></a>
+			<%
+				}	
+			%>
+			
 			</div>
 		</div>
 	</form>
-	<div class="wd-basic-960 mb-auto mt-4" id="comment"
-		style="height: auto">
-		<p>댓글등록</p>
-		<input type="text" title="제목" maxlength="1900">
-		<button type="button">등록</button>
-		<p>0/1000byte</p>
-
-	</div>
-
+	<form name="FEForm2" method="post" action="replyInsert.board">
+		<div class="wd-basic-960 mb-auto mt-4" id="comment" style="height: auto">
+			<p>댓글등록</p>
+			<input type="text" title="제목" maxlength="1900">
+			<button type="button">등록</button>
+			<p>0/1000byte</p>
+		</div>
+	</form>
 
 	<footer>
 		<div class="container">

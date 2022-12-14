@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>	
+	pageEncoding="UTF-8" import="com.farmeasy.model.member.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -79,7 +80,16 @@
 						<div>
 							<span>
 								<input type="text" title="제목" maxlength="1900" name="board_title" required>
-								<input type="text" maxlength="1900" name="user_name" placeholder="작성자이름을 쓰세요" required>
+							</span>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th>작성자 ID</th>
+					<td>
+						<div>
+							<span>
+								${m_id}							
 							</span>
 						</div>
 					</td>

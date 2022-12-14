@@ -5,6 +5,7 @@
 <%
 	BoardDao boardDao = BoardDao.getInstance();
 	BoardDto boardDto = boardDao.getBoardDB((int)(session.getAttribute("updateDeleteBoardId")));
+	BoardFileDto boardFileDto = boardDao.getBoardFileDB((int)(session.getAttribute("updateDeleteBoardId")));
 %>
 
 <!DOCTYPE html>
@@ -90,11 +91,11 @@
 					</td>
 				</tr>
 				<tr>
-					<th>작성자</th>
+					<th>작성자 ID</th>
 					<td>
 						<div>
-							<span style="float: left; margin-left: 12px;">
-								<%=boardDto.getUser_name() %>
+							<span>
+								<%=boardDto.getUser_idName() %>
 							</span>
 						</div>
 					</td>
@@ -107,7 +108,7 @@
 				</tr>
 				<tr>
 					<th>첨부파일</th>
-					<td><input type="file" name="board_file" title="첨부파일"></td>
+					<td><input type="file" name="board_file" title="첨부파일"><%=boardFileDto.getBoard_file_name() %></td>
 				</tr>
 			</table>
 			<div id="board_write">

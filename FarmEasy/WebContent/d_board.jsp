@@ -86,7 +86,7 @@
 				<tr>
 					<th>번호</th>
 					<th>제목</th>
-					<th>작성자</th>
+					<th>작성자 ID</th>
 					<th>등록날짜</th>
 					<th>조회수</th>
 				</tr>
@@ -102,7 +102,7 @@
 				<tr>
 					<td><%=boardDto.getBoard_id() %></td>
 					<td><a href="d_board_content.jsp?board_id=<%=boardDto.getBoard_id() %>"><%=boardDto.getBoard_title() %></a></td>
-					<td><%=boardDto.getUser_name() %></td>
+					<td><%=boardDto.getUser_idName() %></td>
 					<td><%=boardDto.getInsert_date() %></td>
 					<td><%=boardDto.getBoard_hits() %></td>
 				</tr>
@@ -114,9 +114,16 @@
 			%>
 			
 		</table>
-		<div id="no_btn">
-			<a href="d_board_write.jsp">글쓰기</a>
-		</div>
+			<c:choose>
+			<c:when test="${sessionScope.m_id eq null}">
+
+				</c:when>
+				<c:otherwise>
+					<div id="no_btn">
+						<a href="d_board_write.jsp">글쓰기</a>
+					</div>
+				</c:otherwise>
+			</c:choose>
 
 		<div style="text-align: center;" class="mt-5" id="no_paging">
 			<p>

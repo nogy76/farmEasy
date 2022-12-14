@@ -4,7 +4,7 @@ public class BoardDto {
 	//멤버 변수 선언
 	private int board_id;			//게시판 번호
 //	private int user_id;			//회원 번호
-	private String user_name;		//회원 이름 - 임시
+	private String user_idName;
 	
 	private String fe_type;			//회원 유형('N'ormal, 'M'anager)
 	private String board_title;		//글 제목
@@ -17,10 +17,10 @@ public class BoardDto {
 		
 	}
 	
-	public BoardDto(int board_id, String user_name, String fe_type, String board_title, String board_content, String insert_date, String update_date, int board_hits) {
+	public BoardDto(int board_id, String user_idName, String fe_type, String board_title, String board_content, String insert_date, String update_date, int board_hits) {
 		this.board_id = board_id;
 //		this.user_id = user_id;
-		this.user_name = user_name;
+		this.user_idName = user_idName;
 		
 		this.fe_type = fe_type;
 		this.board_title = board_title;
@@ -32,14 +32,6 @@ public class BoardDto {
 
 	public int getBoard_id() {
 		return board_id;
-	}
-
-//	public int getUser_id() {
-//		return user_id;
-//	}
-
-	public String getUser_name() {
-		return user_name;
 	}
 	
 	public String getFe_type() {
@@ -66,6 +58,10 @@ public class BoardDto {
 		return board_hits;
 	}
 
+	public String getUser_idName() {
+		return user_idName;
+	}
+
 	public void setBoard_id(int board_id) {
 		this.board_id = board_id;
 	}
@@ -73,10 +69,6 @@ public class BoardDto {
 //	public void setUser_id(int user_id) {
 //		this.user_id = user_id;
 //	}
-	
-	public void setUser_name(String user_name) {
-		this.user_name = user_name;
-	}
 
 	public void setFe_type(String fe_type) {
 		this.fe_type = fe_type;
@@ -100,6 +92,10 @@ public class BoardDto {
 
 	public void setBoard_hits(int board_hits) {
 		this.board_hits = board_hits;
+	}
+
+	public void setUser_idName(String user_idName) {
+		this.user_idName = user_idName;
 	}
 	
 	
