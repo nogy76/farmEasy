@@ -34,7 +34,7 @@
 		result = confirm("정말로 게시글을 삭제하시겠습니까?");
 		
 		if(result) {
-			document.FEForm1.action="delete.board";
+			document.FEForm1.action="boardDelete.do";
 			document.FEForm1.submit();
 		} else {
 			return;

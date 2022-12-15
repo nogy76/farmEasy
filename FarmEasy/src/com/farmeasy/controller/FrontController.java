@@ -90,18 +90,62 @@ public class FrontController extends HttpServlet {
 			
 			int updateBoardId = (int)session.getAttribute("updateDeleteBoardId");
 			
+			//각각 다른 DB에 넣기 위해 각각 객체 생성
 			BoardDto boardDto = new BoardDto();
-			boardDto.setBoard_title(request.getParameter("board_title"));
-			boardDto.setBoard_content(request.getParameter("board_content"));
+			BoardFileDto boardFileDto = new BoardFileDto();
 			
-			request.setAttribute("updateBoardId", updateBoardId);
-			request.setAttribute("boardDto", boardDto);
+			//상대 파일 경로
+			String saveFolder = request.getSession().getServletContext().getRealPath("/upload");
+			int maxSize = 5 * 1024 * 1024;
 			
-			BoardUpdateService updateService = new BoardUpdateServiceImpl();
-			updateService.execute(request, response);
-						
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/d_board_content.jsp?board_id="+updateBoardId);
-			dispatcher.forward(request, response);
+			//파일 업로드/다운로드를 위한 로직. form에서 encType을 다르게 받기 떄문에 multi.getParameter를 사용해야 값을 불러올 수 있음
+			try {
+				MultipartRequest multi = null;
+				multi = new MultipartRequest(request, saveFolder, maxSize, "utf-8", new DefaultFileRenamePolicy());				
+				
+				boardDto.setBoard_title(multi.getParameter("board_title"));
+				boardDto.setBoard_content(multi.getParameter("board_content"));
+				request.setAttribute("boardDto", boardDto);
+				request.setAttribute("updateBoardId", updateBoardId);
+				
+				//업로드된 파일의 이름(실제 저장되는 이름)
+				boardFileDto.setBoard_file_name(multi.getFilesystemName("board_file"));
+				
+				//압로드된 파일의 실제 이름(파일 자체의 실제 이름)
+				boardFileDto.setBoard_file_realName(multi.getOriginalFileName("board_file"));
+				
+				//파일 업로드 유무에 따른 게시글 insert를 하기 위한 if문
+				if(multi.getOriginalFileName("board_file") != null) {
+				
+					//업로드된 파일의 크기(byte단위)
+					boardFileDto.setBoard_file_byte(String.valueOf(multi.getFile("board_file").length()));
+					
+					request.setAttribute("boardFileDto", boardFileDto);
+					
+					BoardUpdateService updateService = new BoardUpdateServiceImpl();
+					updateService.execute(request, response);
+					
+					BoardFileUpdateService fileUpdateService = new BoardFileUpdateServiceImpl();
+					fileUpdateService.execute(request, response);
+					
+					RequestDispatcher dispatcher = request.getRequestDispatcher("/d_board_content.jsp?board_id="+updateBoardId);
+					dispatcher.forward(request, response);
+					
+				//파일 업로드를 하지 않고 그냥 게시글만 쓸 경우
+				} else {
+					BoardUpdateService updateService = new BoardUpdateServiceImpl();
+					updateService.execute(request, response);
+					
+					RequestDispatcher dispatcher = request.getRequestDispatcher("/d_board_content.jsp?board_id="+updateBoardId);
+					dispatcher.forward(request, response);
+				}
+				
+			} catch(IOException e) {
+				System.out.println("boardUpdate 에러 발생!");
+				e.printStackTrace();
+			} catch(Exception e2) {
+				e2.printStackTrace();
+			}
 		
 		
 		//게시글 삭제 커맨드
@@ -159,16 +203,19 @@ public class FrontController extends HttpServlet {
 					
 					request.setAttribute("boardFileDto", boardFileDto);
 					
+					BoardInsertService insertService = new BoardInsertServiceImpl();
+					insertService.execute(request, response);
+					
 					BoardUploadService uploadService = new BoardUploadServiceImpl();
 					uploadService.execute(request, response);
 					
-					response.sendRedirect("/FarmEasy/boardList.board");
+					response.sendRedirect("/FarmEasy/boardList.do");
 				
 				//파일 업로드를 하지 않고 그냥 게시글만 쓸 경우
 				} else {
 					BoardInsertService insertService = new BoardInsertServiceImpl();
 					insertService.execute(request, response);
-					response.sendRedirect("/FarmEasy/boardList.board");
+					response.sendRedirect("/FarmEasy/boardList.do");
 				}
 				
 			} catch(IOException e) {
@@ -301,7 +348,7 @@ public class FrontController extends HttpServlet {
 		
 		
 		// -------------------------
-		// ----- 비밀번호 찾기 ---------
+		// ----- 비밀번호 찾기 ----------
 		// -------------------------
 		} else if(command.equals("/memberFindPw.do")) {
 					

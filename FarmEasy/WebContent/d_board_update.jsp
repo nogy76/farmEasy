@@ -17,7 +17,7 @@
 <link href="images/favi.png" rel="shortcut icon" type="image/x-icon">
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/board_write.css">
-<title>글쓰기</title>
+<title>글수정</title>
 
 <link
 	href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap"
@@ -78,7 +78,7 @@
 
 	<div class="wd-basic-960 mb-auto mt-4" id="info-bottom"
 		style="height: 650px;">
-		<form name="FEForm1" method="post" action="boardUpdate.do">
+		<form name="FEForm1" method="post" action="boardUpdate.do" encType="multipart/form-data">
 			<table>
 				<tr>
 					<th>제목</th>
@@ -108,12 +108,12 @@
 				</tr>
 				<tr>
 					<th>첨부파일</th>
-					<td><input type="file" name="board_file" title="첨부파일"><%=boardFileDto.getBoard_file_name() %></td>
+					<td><input type="file" name="board_file" title="첨부파일"></td>
 				</tr>
 			</table>
 			<div id="board_write">
 				<button type="submit" id="board_sumbit">수정</button>
-				<a href="/FarmEasy/list.board"><button type="button" id="board_return">목록</button></a>
+				<a href="/FarmEasy/boardList.do"><button type="button" id="board_return">목록</button></a>
 			</div>
 		</form>
 	</div>

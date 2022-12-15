@@ -17,8 +17,8 @@ public class BoardUploadServiceImpl implements BoardUploadService {
 
 	@Override
 	public boolean execute(HttpServletRequest request, HttpServletResponse response) {
-		boardDao.insertBoard((BoardDto)request.getAttribute("boardDto"));
 		boardDao.uploadFile((BoardFileDto)request.getAttribute("boardFileDto"));
+//		boardDao.insertBoard((BoardDto)request.getAttribute("boardDto"));
 		return false;
 	}
 

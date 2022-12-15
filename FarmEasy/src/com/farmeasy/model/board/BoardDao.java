@@ -242,6 +242,34 @@ public class BoardDao {
 		}
 	}
 	
+	
+	//파일 갱신
+	public void updateFile(int boardId, BoardFileDto boardFileDto) {
+		Connection connection = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			connection = getConnection();
+			pstmt = connection.prepareStatement("update fe_board_file set board_file_name=?, board_file_realName=?, board_file_byte=? where board_id="+boardId);
+			pstmt.setString(1, boardFileDto.getBoard_file_name());
+			pstmt.setString(2, boardFileDto.getBoard_file_realName());
+			pstmt.setString(3, boardFileDto.getBoard_file_byte());
+			
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("updateFile() 예외 발생");
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				connection.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+	}
+	
 	public BoardFileDto getBoardFileDB(int board_id) {
 		BoardFileDto boardFileDto = new BoardFileDto();
 		
