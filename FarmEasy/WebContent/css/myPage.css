@@ -10,52 +10,73 @@
         margin: 0px auto;
     }
     
-    #myPage_wrap{
+    .wd-30{
+        width: 30%;
+    }
+
+    .mypage_wrap{
         width: 960px;
-        height: 20vh;
-    }
-
-    #myPage_wrap div{
-        display: flex;
-        float: left;
         margin: 0 auto;
+        padding-top: 100px;
     }
 
-    #myPage_title{
-        font-size: 1.2rem;
-        color: rgb(84, 84, 84);
-        width: 300px;
-    }
+    .tab {
+        float: left;
+        /* border: 1px solid #ccc; */
+        width: 25%;
+        height: 300px;
+      }
 
-
-    #myPage_title ul li:first-child{
+      .tab h4{
         font-size: 1.5rem;
         color: #222;
-    }
-
-    #myPage_title ul li:nth-child(n+2){
-        margin-top: 20px;
+        margin-bottom: 20px;
+      }
+      
+      /* Style the buttons inside the tab */
+      .tab button {
+        display: block;
+        background-color: inherit;
+        padding: 8px;
+        width: 100%;
+        border: none;
+        outline: none;
+        text-align: left;
+        cursor: pointer;
         font-size: 0.9rem;
         color: #666;
         cursor: pointer;
-        margin-left: 5px;
-    }
+      }
+      
+      /* Change background color of buttons on hover */
+      .tab button:hover {
+        font-weight: 700;
+      }
+      
+      /* Create an active/current "tab button" class */
+      .tab button.active {
+        color: #333;
+      }
+      
+      /* Style the tab content */
+      .tabcontent {
+        float: left;
+        padding: 0px 12px;
+        width: 70%;
+        border-left: none;
+        height: 300px;
+      }
+ 
 
 
-    #myPage_list{
-        width: 660px;
-        border: 1px solid #eee;
-        height: 140px;
-        font-size: 1rem;
-    }
-
-    #myPage_list .myPage_hi {
+    .myPage_hi {
         display: flex;
-        width: inherit;
+        border: 1px solid #ddd;
+        height: 136px;
 
     }
     
-    #myPage_list .myPage_hi img{
+    .myPage_hi img{
         width: 70px;
         height: 70px;
         margin-top: 30px;

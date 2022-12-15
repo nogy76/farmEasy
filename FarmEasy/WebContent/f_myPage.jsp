@@ -17,7 +17,7 @@
 	crossorigin="anonymous">
 	
 </script>
-<script src="js/index.js" defer></script>
+<script src="js/mypage.js" defer></script>
 </head>
 <body id="body">
 	<!-- nav 시작 -->
