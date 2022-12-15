@@ -10,6 +10,172 @@
         margin: 0px auto;
     }
     
+    .wd-30{
+        width: 30%;
+    }
+
+    .mypage_wrap{
+        width: 960px;
+        margin: 0 auto;
+        padding-top: 100px;
+    }
+
+    .tab {
+        float: left;
+        /* border: 1px solid #ccc; */
+        width: 25%;
+        height: 300px;
+      }
+
+      .tab h4{
+        font-size: 1.5rem;
+        color: #222;
+        margin-bottom: 20px;
+      }
+      
+      /* Style the buttons inside the tab */
+      .tab button {
+        display: block;
+        background-color: inherit;
+        padding: 8px;
+        width: 100%;
+        border: none;
+        outline: none;
+        text-align: left;
+        cursor: pointer;
+        font-size: 0.9rem;
+        color: #666;
+        cursor: pointer;
+      }
+      
+      /* Change background color of buttons on hover */
+      .tab button:hover {
+        font-weight: 700;
+      }
+      
+      /* Create an active/current "tab button" class */
+      .tab button.active {
+        color: #333;
+      }
+      
+      /* Style the tab content */
+      .tabcontent {
+        float: left;
+        padding: 0px 12px;
+        width: 70%;
+        border-left: none;
+        height: 300px;
+      }
+ 
+
+
+    .myPage_hi {
+        display: flex;
+        border: 1px solid #ddd;
+        height: 136px;
+
+    }
+    
+    .myPage_hi img{
+        width: 70px;
+        height: 70px;
+        margin-top: 30px;
+        margin-left: 20px;
+    }
+
+
+    .myPage_hi li:nth-child(2){
+        margin-top: 40px;
+        line-height: 25px;
+        width: 395px;
+        padding-left:25px;
+    }
+
+
+    .myPage_hi li:nth-child(2) span{
+        font-weight: 700;
+    }
+
+    .myPage_hi li:nth-child(3){
+        text-align: center;
+        border-left: 1px solid #777;
+        height: 56px;
+        margin-top: 40px;
+        color: #777;
+        line-height: 30px;
+        width: 395px;
+    }
+
+
+    .myPage_hi li:nth-child(3) p{
+        color : #222;
+        font-weight: 700;
+    }
+
+
+
+    table{
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    table tr{
+        text-align: center;
+        border-bottom: 1px solid #eee;
+    }
+
+    table tr:first-child{
+        border-top: 2px solid #222;
+        border-bottom: none;
+    }
+
+    table tr:first-child td{
+        border-right: 1px solid #eee;
+        border-left: 1px solid #eee;
+        font-size: 16px;
+        font-weight: 600;
+        color: #333;
+    }
+
+    table tr td{
+        padding: 10px 0;
+    }
+
+    h5{
+        text-align: center;
+        font-size: 1.1rem;
+        margin-bottom: 20px;
+        line-height: 75px;
+    }
+
+    .myPage_edit_name{
+        text-align: center;
+        font-size: 16px;
+    }
+
+    .myPage_edit_name span{
+        margin-left: 20px;
+    }
+    
+    .myPage_edit_input{
+        width: 180px;
+        height: 30px;
+    }
+
+    .myPage_edit_btn input{
+        border: none;
+        width: 150px;
+        height: 35px;
+        border-radius: 10px;
+        margin-top: 30px;
+        font-size: 15px;
+        background: #3155a4;
+        color: #fff;
+        cursor: pointer;
+    }
+
+
+
     #myPage_wrap{
         width: 960px;
         height: 20vh;
@@ -41,105 +207,10 @@
         margin-left: 5px;
     }
 
-
     #myPage_list{
-        width: 660px;
-        border: 1px solid #eee;
         height: 140px;
         font-size: 1rem;
     }
 
-    #myPage_list .myPage_hi {
-        display: flex;
-        width: inherit;
-
-    }
-    
-    #myPage_list .myPage_hi img{
-        width: 70px;
-        height: 70px;
-        margin-top: 30px;
-        margin-left: 20px;
-    }
 
 
-    #myPage_list .myPage_hi li:nth-child(2){
-        margin-top: 40px;
-        line-height: 25px;
-        width: 395px;
-        padding-left:25px;
-    }
-
-
-    #myPage_list .myPage_hi li:nth-child(2) span{
-        font-weight: 700;
-    }
-
-    #myPage_list .myPage_hi li:nth-child(3){
-        text-align: center;
-        border-left: 1px solid #777;
-        height: 56px;
-        margin-top: 40px;
-        color: #777;
-        line-height: 30px;
-        width: 395px;
-    }
-
-
-    #myPage_list .myPage_hi li:nth-child(3) p{
-        color : #222;
-        font-weight: 700;
-    }
-
-
-    /* #myPage_showList_wrap 리스트 wrap */
-
-    #myPage_showList_wrap{
-        height: 500px;
-        display: flex;
-    }
-
-    #myPage_showList_wrap .wd-300{
-        width: 300px;
-        height: inherit;
-    }
-
-    #myPage_showList_wrap .list_wrap{
-        width: 660px;
-        height: inherit;
-    }
-
-    #myPage_showList_wrap .list_wrap h3{
-        font-size: 22px;
-    }
-
-    #myPage_showList_wrap .list_wrap .myPage_showList table{
-        width: 650px;
-        border-collapse: collapse;
-        margin-top: 20px;
-        font-size: 14px;
-        color: #777;
-    }
-
-    .myPage_showList table tr{
-        text-align: center;
-        border-bottom: 1px solid #eee;
-    }
-
-    .myPage_showList table tr:first-child{
-        border-top: 2px solid #222;
-        border-bottom: none;
-    }
-
-
-    .myPage_showList table tr:first-child td{
-        border-right: 1px solid #eee;
-        border-left: 1px solid #eee;
-        font-size: 16px;
-        font-weight: 600;
-        color: #333;
-    }
-
-    .myPage_showList table tr td{
-        padding: 10px 0;
-    }
