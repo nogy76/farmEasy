@@ -17,7 +17,7 @@
 	crossorigin="anonymous">
 	
 </script>
-<script src="js/index.js" defer></script>
+<script src="js/mypage.js" defer></script>
 </head>
 <body id="body">
 	<!-- nav 시작 -->
@@ -69,46 +69,83 @@
 	<!-- nav 끝 -->
 
 
-	<div id="myPage_wrap" class="mb-auto mt-5">
-		<div id="myPage_title">
-			<ul>
-				<li>마이 페이지</li>
-				<li><a href="#">- 정책 리스트 보기</a></li>
-				<li><a href="f_myPage_CheckPw.jsp">- 회원 정보 수정</a></li>
-				<li><a href="#">- 회원 탈퇴</a></li>
-			</ul>
-		</div>
-		<div id="myPage_list">
-			<ul class="myPage_hi">
-				<li><img src="images/user.png"></li>
-				<li><span>${m_id}</span>님,<br>안녕하세요.</li>
-				<li>리스트 수
-					<p>3</p>
-				</li>
-			</ul>
-		</div>
-	</div>
+<div class="mypage_wrap">
 
-	<div id="myPage_showList_wrap" class="mb-auto wd-basic-960 mt-5">
-		<div class="wd-300"></div>
-		<div class="list_wrap">
-			<h3>추가한 리스트</h3>
-			<ul class="myPage_showList">
-				<li>
-					<table>
-						<tr>
-							<td>번호</td>
-							<td>시군</td>
-							<td>시군구</td>
-							<td>정책명</td>
-						</tr>
-					</table>
+    <div class="tab">
+      <h4>마이페이지</h4>
+      <button class="tablinks" onclick="openCity(event, 'myPage_list')" id="defaultOpen">- 정책 리스트 보기</button>
+      <button class="tablinks" onclick="openCity(event, 'myPage_edit')" >- 회원 정보 수정</button>
+      <button class="tablinks" onclick="openCity(event, 'myPage_remove')">- 회원 탈퇴</button>
+    </div>
 
-				</li>
-				<li></li>
-			</ul>
+
+	<div id="myPage_list" class="tabcontent">
+		      <ul class="myPage_hi">
+		      	<li><img src="images/user.png"></li>
+		        <li><span>사용자</span>님,<br>안녕하세요.</li>
+		        <li>리스트 수<p>3</p></li>
+		      </ul>
+		      <h3 class="mt-5">추가한 리스트</h3>
+		      <table>
+		          <tr>
+		            <td>번호</td>
+		            <td>시군</td>
+		            <td>시군구</td>
+		            <td>정책명</td>
+		          </tr>
+		          <tr>
+		            <td>1</td>
+		            <td>전주</td>
+		            <td>전주시</td>
+		            <td>예산 증진</td>
+		          </tr>
+		          <tr>
+		            <td>2</td>
+		            <td>전주</td>
+		            <td>전주시</td>
+		            <td>예산 증진</td>
+		          </tr>
+		          <tr>
+		            <td>3</td>
+		            <td>전주</td>
+		            <td>전주시</td>
+		            <td>예산 증진</td>
+		          </tr>
+		      </table>
+		    </div>
+		
+		
+		  <div id="myPage_edit" class="tabcontent">
+		    <h5>정보를 수정하시려면 비밀번호를 입력하세요.</h5>
+		    <form>
+		      <div class="myPage_edit_name">비밀번호 <span></span>
+		       <input class="myPage_edit_input" type="password" name="m_pw">
+		          <div class="myPage_edit_btn"><input type="submit" value="정보 수정">
+		          </div>
+		    	</div>
+		    </form>
+		  </div>
+		
+		  
+		  <div id="myPage_remove" class="tabcontent">
+		    <h5>탈퇴하시려면 비밀번호를 입력하세요.</h5>
+		    <form>
+		      <div class="myPage_edit_name">비밀번호 <span></span>
+		      	 <input class="myPage_edit_input" type="password" name="m_pw">
+		     	 <div class="myPage_edit_btn"><input type="submit" value="탈퇴">
+		     	 </div>
+		       </div> 
+		    </form>
+		  </div> <!-- end of div myPage_remove -->
 		</div>
-	</div>
+		   
+		   
+		
+		
+		<div style="height: 500px; " class="wd-960 mb-auto"></div>
+		
+		
+		
 
 
 
