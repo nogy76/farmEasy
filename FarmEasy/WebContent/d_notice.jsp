@@ -46,7 +46,7 @@
 			<li class="depth1"><a href="/FarmEasy/boardList.do">게시판</a>
 				<ul class="submenu">
 					<li><a href="/FarmEasy/boardList.do">게시판</a></li>
-					<li><a href="d_notice.board">갤러리</a></li>
+					<li><a href="d_notice.jsp">갤러리</a></li>
 				</ul></li>
 		</ul>
 		<!-- icon -->
@@ -177,7 +177,7 @@
 	<footer>
 		<div class="container">
 			<div>
-				<span>&copy; 귀농 인구를 위한 지역 추천 및 농산물가격 예측 서비스</span>
+				<span>&copy; 귀농 인구를 위한 지역 및 농작물 추천 서비스</span>
 			</div>
 			<ul>
 				<li class="ms-3"><a class="text-muted" href="#"><svg

@@ -276,7 +276,7 @@
 	<footer>
 		<div class="container">
 			<div>
-				<span>&copy; 귀농 인구를 위한 지역 추천 및 농산물가격 예측 서비스</span>
+				<span>&copy; 귀농 인구를 위한 지역 및 농작물 추천 서비스</span>
 			</div>
 			<ul>
 				<li class="ms-3"><a class="text-muted" href="#"><svg

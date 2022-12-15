@@ -84,7 +84,7 @@
     }
 
 
-    #myPage_list .myPage_hi li:nth-child(2){
+    .myPage_hi li:nth-child(2){
         margin-top: 40px;
         line-height: 25px;
         width: 395px;
@@ -92,11 +92,11 @@
     }
 
 
-    #myPage_list .myPage_hi li:nth-child(2) span{
+    .myPage_hi li:nth-child(2) span{
         font-weight: 700;
     }
 
-    #myPage_list .myPage_hi li:nth-child(3){
+    .myPage_hi li:nth-child(3){
         text-align: center;
         border-left: 1px solid #777;
         height: 56px;
@@ -107,53 +107,29 @@
     }
 
 
-    #myPage_list .myPage_hi li:nth-child(3) p{
+    .myPage_hi li:nth-child(3) p{
         color : #222;
         font-weight: 700;
     }
 
 
-    /* #myPage_showList_wrap 리스트 wrap */
 
-    #myPage_showList_wrap{
-        height: 500px;
-        display: flex;
-    }
-
-    #myPage_showList_wrap .wd-300{
-        width: 300px;
-        height: inherit;
-    }
-
-    #myPage_showList_wrap .list_wrap{
-        width: 660px;
-        height: inherit;
-    }
-
-    #myPage_showList_wrap .list_wrap h3{
-        font-size: 22px;
-    }
-
-    #myPage_showList_wrap .list_wrap .myPage_showList table{
-        width: 650px;
+    table{
         border-collapse: collapse;
-        margin-top: 20px;
-        font-size: 14px;
-        color: #777;
+        width: 100%;
     }
 
-    .myPage_showList table tr{
+    table tr{
         text-align: center;
         border-bottom: 1px solid #eee;
     }
 
-    .myPage_showList table tr:first-child{
+    table tr:first-child{
         border-top: 2px solid #222;
         border-bottom: none;
     }
 
-
-    .myPage_showList table tr:first-child td{
+    table tr:first-child td{
         border-right: 1px solid #eee;
         border-left: 1px solid #eee;
         font-size: 16px;
@@ -161,6 +137,79 @@
         color: #333;
     }
 
-    .myPage_showList table tr td{
+    table tr td{
         padding: 10px 0;
     }
+
+    h5{
+        text-align: center;
+        font-size: 1.1rem;
+        margin-bottom: 20px;
+        line-height: 75px;
+    }
+
+    .myPage_edit_name{
+        text-align: center;
+        font-size: 16px;
+    }
+
+    .myPage_edit_name span{
+        margin-left: 20px;
+    }
+    
+    .myPage_edit_input{
+        width: 180px;
+        height: 30px;
+    }
+
+    .myPage_edit_btn input{
+        border: none;
+        width: 150px;
+        height: 35px;
+        border-radius: 10px;
+        margin-top: 30px;
+        font-size: 15px;
+        background: #3155a4;
+        color: #fff;
+        cursor: pointer;
+    }
+
+
+
+    #myPage_wrap{
+        width: 960px;
+        height: 20vh;
+    }
+
+    #myPage_wrap div{
+        display: flex;
+        float: left;
+        margin: 0 auto;
+    }
+
+    #myPage_title{
+        font-size: 1.2rem;
+        color: rgb(84, 84, 84);
+        width: 300px;
+    }
+
+
+    #myPage_title ul li:first-child{
+        font-size: 1.5rem;
+        color: #222;
+    }
+
+    #myPage_title ul li:nth-child(n+2){
+        margin-top: 20px;
+        font-size: 0.9rem;
+        color: #666;
+        cursor: pointer;
+        margin-left: 5px;
+    }
+
+    #myPage_list{
+        height: 140px;
+        font-size: 1rem;
+    }
+
+

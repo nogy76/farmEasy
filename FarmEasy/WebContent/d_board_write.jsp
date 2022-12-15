@@ -107,7 +107,7 @@
 			</table>
 			<div id="board_write">
 				<button type="submit" id="board_sumbit">저장</button>
-				<a href="/FarmEasy/list.board"><button type="button" id="board_return">목록</button></a>
+				<a href="/FarmEasy/boardList.do"><button type="button" id="board_return">목록</button></a>
 			</div>
 		</form>
 	</div>
@@ -117,7 +117,7 @@
 	<footer>
 		<div class="container">
 			<div>
-				<span>&copy; 귀농 인구를 위한 지역 및 농산물 추천 서비스</span>
+				<span>&copy; 귀농 인구를 위한 지역 및 농작물 추천 서비스</span>
 			</div>
 			<ul>
 				<li class="ms-3"><a class="text-muted" href="#"><svg
