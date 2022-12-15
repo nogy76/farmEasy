@@ -68,9 +68,9 @@
 					<li><a href="b_jeolla_info.jsp">전라도 정책</a></li>
 				</ul></li>
 			<li class="depth1"><a href="c_bigdata.jsp">농산물 빅데이터</a></li>
-			<li class="depth1"><a href="/FarmEasy/list.board">게시판</a>
+			<li class="depth1"><a href="/FarmEasy/boardList.do">게시판</a>
 				<ul class="submenu">
-					<li><a href="/FarmEasy/list.board">게시판</a></li>
+					<li><a href="/FarmEasy/boardList.do">게시판</a></li>
 					<li><a href="d_notice.jsp">갤러리</a></li>
 				</ul></li>
 		</ul>
@@ -132,11 +132,11 @@
 			%>
 				<a href="d_board_update.jsp"><button type="button" id="board_return">수정</button></a>
 				<a href="#"><button type="button" id="board_return" onclick="deleteCheck()">삭제</button></a>
-				<a href="/FarmEasy/list.board"><button type="button" id="board_return">목록</button></a>
+				<a href="/FarmEasy/boardList.do"><button type="button" id="board_return">목록</button></a>
 			<%
 				} else {
 			%>					
-				<a href="/FarmEasy/list.board"><button type="button" id="board_return">목록</button></a>
+				<a href="/FarmEasy/boardList.do"><button type="button" id="board_return">목록</button></a>
 			<%
 				}	
 			%>
@@ -144,7 +144,7 @@
 			</div>
 		</div>
 	</form>
-	<form name="FEForm2" method="post" action="replyInsert.board">
+	<form name="FEForm2" method="post" action="boardReplyInsert.do">
 		<div class="wd-basic-960 mb-auto mt-4" id="comment" style="height: auto">
 			<p>댓글등록</p>
 			<input type="text" title="제목" maxlength="1900">

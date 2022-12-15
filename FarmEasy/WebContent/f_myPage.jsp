@@ -41,9 +41,9 @@
 					<li><a href="b_jeolla_info.jsp">전라도 정책</a></li>
 				</ul></li>
 			<li class="depth1"><a href="c_bigdata.jsp">농산물 빅데이터</a></li>
-			<li class="depth1"><a href="/FarmEasy/list.board">게시판</a>
+			<li class="depth1"><a href="/FarmEasy/boardList.board">게시판</a>
 				<ul class="submenu">
-					<li><a href="/FarmEasy/list.board">게시판</a></li>
+					<li><a href="/FarmEasy/boardList.board">게시판</a></li>
 					<li><a href="d_notice.jsp">갤러리</a></li>
 				</ul></li>
 		</ul>
@@ -73,6 +73,7 @@
 		<div id="myPage_title">
 			<ul>
 				<li>마이 페이지</li>
+				<li><a href="#">- 정책 리스트 보기</a></li>
 				<li><a href="f_myPage_CheckPw.jsp">- 회원 정보 수정</a></li>
 				<li><a href="#">- 회원 탈퇴</a></li>
 			</ul>
@@ -80,7 +81,7 @@
 		<div id="myPage_list">
 			<ul class="myPage_hi">
 				<li><img src="images/user.png"></li>
-				<li><span>사용자</span>님,<br>안녕하세요.</li>
+				<li><span>${m_id}</span>님,<br>안녕하세요.</li>
 				<li>리스트 수
 					<p>3</p>
 				</li>
@@ -101,24 +102,6 @@
 							<td>시군구</td>
 							<td>정책명</td>
 						</tr>
-						<tr>
-							<td>1</td>
-							<td>전주</td>
-							<td>전주시</td>
-							<td>예산 증진</td>
-						</tr>
-						<tr>
-							<td>2</td>
-							<td>전주</td>
-							<td>전주시</td>
-							<td>예산 증진</td>
-						</tr>
-						<tr>
-							<td>3</td>
-							<td>전주</td>
-							<td>전주시</td>
-							<td>예산 증진</td>
-						</tr>
 					</table>
 
 				</li>
@@ -126,9 +109,6 @@
 			</ul>
 		</div>
 	</div>
-
-
-
 
 
 

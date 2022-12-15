@@ -18,33 +18,28 @@
 		<header>
 			<div class="find-pw-title">비밀번호 찾기</div>
 		</header>
-		<form action="e_find_pw.jsp">
+		
+		<form action="memberFindPw.do" name="findPw"  method="post">
 			<section class="find-pw-input-section-wrap">
 			
 			<div class="shadow_wrap">	
 				<div class="find-pw-input-wrap">
-					<input placeholder="이름" type="text" required></input>
+					<input placeholder="이름" type="text" name="m_name" required></input>
 				</div>
 				<div class="find-pw-input-wrap id-wrap">
-					<input placeholder="아이디" type="text" required></input>
+					<input placeholder="아이디" type="text" name="m_id" required></input>
 				</div>
 				<div class="find-pw-input-wrap password-wrap">
-					<input placeholder="이메일 주소" type="email" required></input>
+					<input placeholder="이메일 주소" type="email" name="m_email" required></input>
 				</div>
 			</div>		
 				<div class="find-pw-button-wrap">
-					<input type="submit" value="확인" onclick="reloadLogin()"></input>
+					<input type="submit" value="확인"></input>
 				</div>
 			</section>
 		</form>
 	</div>
 </div>
-<script>
-	function reloadLogin() {
-		alert("가입시 입력하신 이메일로 비밀번호가 발송되었습니다.");
-		window.opener.location.reload();
-		window.close();
-	}
-</script>
+
 </body>
 </html>

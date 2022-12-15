@@ -18,19 +18,21 @@
 <div class="main-container">
 	<div class="main-wrap">
 			<div class="find-id-title">아이디 찾기</div>
-		<form action="e_find_id.jsp">
+			
+			
+		<form action="memberFindId.do" method="post">
 			<section class="find-id-input-section-wrap">
 			
 			<div class="shadow_wrap">	
 				<div class="find-id-input-wrap">
-					<input placeholder="이름" type="text" required></input>
+					<input placeholder="이름" type="text" name="m_name" required></input>
 				</div>
 				<div class="find-id-input-wrap password-wrap">
-					<input placeholder="이메일 주소" type="email" required></input>
+					<input placeholder="이메일 주소" type="email" name="m_email" required></input>
 				</div>
 			</div>	
 				<div class="find-id-button-wrap">
-					<input type="submit" value="확인" onclick="reloadLogin()"></input>
+					<input type="submit" value="확인"></input>
 				</div>
 			</section>
 		</form>

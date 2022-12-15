@@ -21,7 +21,7 @@
 				<h1>로그인</h1>
 			</div>
 		</header>
-		<form action="login.do" name="login_check" id="login_check" >
+		<form action="memberLogin.do" name="login_check" id="login_check" >
 			<section class="login-input-section-wrap">
 				<div class="login-input-wrap">
 					<input placeholder="아이디" type="text" name="m_id">

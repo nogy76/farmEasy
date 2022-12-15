@@ -1,14 +1,17 @@
 
 function validate() {
 	
-    var re = /^[a-zA-Z0-9]{4,12}$/ // 아이디와 패스워드가 적합한지 검사할 정규식
+    var re = /^[a-zA-Z0-9]{4,12}$/ 
+    // 아이디와 패스워드가 적합한지 검사할 정규식
     var re2 = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-    // 이메일이 적합한지 검사할 정규식
+    // 이메일 형식 첫글자는 숫자또는 영문자
+    var re3 = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
+    //  번호는 01로 시작해야 합니다.
 
     var m_id = document.getElementById("m_id");
     var m_pw = document.getElementById("m_pw");
     var m_email = document.getElementById("m_email");
-
+    var m_mobile = document.getElementById("m_mobile");
 
     // ------------ 이메일 까지 -----------
 
@@ -39,18 +42,20 @@ function validate() {
         return false;
     }
 
-    if(!check(re2, m_email, "적합하지 않은 이메일 형식입니다.")) {
+    if(!check(re2, m_email , "적합하지 않은 이메일 형식입니다.")) {
         return false;
     }
 
+    if(!check(re3 , m_mobile ,"번호는 01로 시작해야 합니다.")) {
+        return false;
+    }
+    
     if(form1.m_name.value=="") {
         alert("이름을 입력해 주세요");
         form1.m_name.focus();
         return false;
     }
-    
-    
-  
+
 }
 	
 	function check(re, what, message) {
@@ -67,7 +72,6 @@ function validate() {
 	function signUp_checkId(){
 		var m_id = document.getElementById('m_id').value;
 		document.location.href="/FarmEasy/checkId.do?m_id="+m_id;
-		
 
 		return true;
 	}

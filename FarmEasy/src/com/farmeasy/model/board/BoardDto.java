@@ -4,7 +4,7 @@ public class BoardDto {
 	//멤버 변수 선언
 	private int board_id;			//게시판 번호
 //	private int user_id;			//회원 번호
-	private String user_idName;
+	private String user_idName;		//게시글에 올라가는 회원의 ID
 	
 	private String fe_type;			//회원 유형('N'ormal, 'M'anager)
 	private String board_title;		//글 제목

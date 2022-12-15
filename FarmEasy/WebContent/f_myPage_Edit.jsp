@@ -49,9 +49,9 @@
 					<li><a href="b_jeolla_info.jsp">전라도 정책</a></li>
 				</ul></li>
 			<li class="depth1"><a href="c_bigdata.jsp">농산물 빅데이터</a></li>
-			<li class="depth1"><a href="/FarmEasy/list.board">게시판</a>
+			<li class="depth1"><a href="/FarmEasy/boardList.do">게시판</a>
 				<ul class="submenu">
-					<li><a href="/FarmEasy/list.board">게시판</a></li>
+					<li><a href="/FarmEasy/boardList.do">게시판</a></li>
 					<li><a href="d_notice.jsp">갤러리</a></li>
 				</ul></li>
 		</ul>
@@ -94,17 +94,7 @@
 								</tr>
 								<tr id="br-bt-none">
 									<td align=left class="td_name">아이디 <span></span></td>
-									<td>doejw834</td>
-								</tr>
-								<tr>
-									<td align=left class="td_name">현재 비밀번호 <span>*</span></td>
-									<td><input class="login-input-wrap" type="password"
-										name="user_pw" required></input></td>
-								</tr>
-								<tr>
-									<td align=left class="td_name">비밀번호 변경 <span>*</span></td>
-									<td><input class="login-input-wrap" type="password"
-										name="user_pw_confirm" required></input></td>
+									<td>${m_id}</td>
 								</tr>
 								<tr>
 									<td align=left class="td_name">이메일 주소 <span>*</span></td>

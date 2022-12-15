@@ -50,9 +50,9 @@
 					<li><a href="b_jeolla_info.jsp">전라도 정책</a></li>
 				</ul></li>
 			<li class="depth1"><a href="c_bigdata.jsp">농산물 빅데이터</a></li>
-			<li class="depth1"><a href="/FarmEasy/list.board">게시판</a>
+			<li class="depth1"><a href="/FarmEasy/boardList.board">게시판</a>
 				<ul class="submenu">
-					<li><a href="/FarmEasy/list.board">게시판</a></li>
+					<li><a href="/FarmEasy/boardList.board">게시판</a></li>
 					<li><a href="d_notice.jsp">갤러리</a></li>
 				</ul></li>
 		</ul>
@@ -78,7 +78,7 @@
 
 	<div class="wd-basic-960 mb-auto mt-4" id="info-bottom"
 		style="height: 650px;">
-		<form name="FEForm1" method="post" action="update.board">
+		<form name="FEForm1" method="post" action="boardUpdate.do">
 			<table>
 				<tr>
 					<th>제목</th>

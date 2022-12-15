@@ -23,9 +23,6 @@ $(function() {
 	    if( $('#idDuplication').val() == 'idUnCheck' ) {
 	    	$('#idDuplication').val('idCheck');
 	    	}
-	    else  if( $('#idDuplication').val() == 'idCheck' ) {
-	    	$('#idDuplication').val('idCheck');
-	    }
 	  });
 	});
 
@@ -35,7 +32,7 @@ $(function() {
 
 <body>
 
-	<form name="reg_frm" action="insert.do" method="post" id="form1" onsubmit="return validate();"> 
+	<form name="reg_frm" action="memberInsert.do" method="post" id="form1" onsubmit="return validate();"> 
 		<div class="main-container">
 			<div class="main-wrap">
 				<fieldset id="signup_fieldset">
