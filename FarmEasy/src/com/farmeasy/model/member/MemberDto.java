@@ -22,6 +22,15 @@ public class MemberDto {
 		this.m_pw = m_pw;
 	}	 
 	
+	public MemberDto(String m_pw, String m_email, String m_mobile, String m_id) {
+		this.m_pw = m_pw;
+		this.m_email = m_email;
+		this.m_mobile = m_mobile;
+		this.m_id = m_id;
+	}
+	
+	
+	
 	public MemberDto(String m_name, String m_id, String m_email) {
 		this.m_name = m_name;
 		this.m_id = m_id;

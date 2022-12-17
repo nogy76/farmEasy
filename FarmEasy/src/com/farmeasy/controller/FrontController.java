@@ -390,16 +390,6 @@ public class FrontController extends HttpServlet {
 				requestDispatcher.forward(request, response);
 			}
 
-//				
-//				// 없어 돌아가
-//				System.out.println("로그인 성공");
-//				HttpSession session = request.getSession();
-//				session.setAttribute("m_email", m_email);
-//				//클라이언트 단위로 정보를 유지하려고 HttpSession 객체에 등록  name, value
-//				response.sendRedirect("index.jsp");
-//			}
-
-			// end of login.do
 
 			
 		// -------------------------
@@ -439,14 +429,44 @@ public class FrontController extends HttpServlet {
 				requestDispatcher.forward(request, response);
 			}
 
-//						System.out.println("로그인 성공");
-//						HttpSession session = request.getSession();
-//						session.setAttribute("m_email", m_email);
-//						//클라이언트 단위로 정보를 유지하려고 HttpSession 객체에 등록  name, value
-//						response.sendRedirect("index.jsp");
-//					}
-
 		} // end of findPw.do
+		
+		else if (command.equals("/memberUpdate.do")) {
 
-	}
-}
+			System.out.println("memberUpdate.do 입니다");
+
+			MemberDto memberDto = new MemberDto();
+
+			memberDto.setM_pw(request.getParameter("m_pw"));
+			memberDto.setM_email(request.getParameter("m_email"));
+			memberDto.setM_mobile(request.getParameter("mobile"));
+
+			// 입력받은 값 콘솔창에서 확인
+			String m_name = request.getParameter("m_name");
+			String m_id = request.getParameter("m_id");
+			String m_email = request.getParameter("m_email");
+			System.out.printf("비밀번호 찾기에서 입력된 값 %n 아이디 : %s %n 이름 : %s %n 이메일 : %s %n", m_id, m_name, m_email);
+			// 입력받은 값 콘솔창에서 확인
+
+			request.setAttribute("memberDto", memberDto);
+
+			MemberFindPwService findPwService = new MemberFindPwServiceImpl();
+			String i = findPwService.execute(request, response);
+			// set해서 보내기~
+
+			if (i == "0" || i == "-1" || i == "1") {
+				request.setAttribute("findpw", i);
+				// 위에 request들고 체크jsp로 이동
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("e_loginFindPw.jsp");
+				requestDispatcher.forward(request, response);
+			} else {
+				request.setAttribute("findpw", i);
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("e_loginFindPw.jsp");
+				requestDispatcher.forward(request, response);
+			}
+
+		} // end of memberUpdate.do
+		
+
+	} // end of actionDo
+} // end of FrontController

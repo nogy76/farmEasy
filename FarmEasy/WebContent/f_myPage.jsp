@@ -134,7 +134,7 @@
 	
 		  <div id="myPage_update" class="tabcontent" >
 		    <h5>정보 수정 페이지</h5>
-		    <form name="myPage_form" method="post" id="myPage_form" onsubmit="return validate();">
+		    <form name="myPage_form" method="post" id="myPage_form" onsubmit="return validate();" action = "memberUpdate.do">
 		    	 <div><span>성명</span><span>${m_name}</span></div>
 		    	 <div><span>아이디</span><span>${m_id}</span></div>
 		    	 <div><span>비밀번호 변경</span><input type="password" id="m_pw" name="m_pw"></div>
