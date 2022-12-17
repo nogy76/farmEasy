@@ -319,35 +319,46 @@ public class FrontController extends HttpServlet {
 
 			
 		// 로그인 커맨드
-		} else if (command.equals("/memberLogin.do")) {
-
+} else if(command.equals("/memberLogin.do")) {
+			
 			System.out.println("memberLogin.do 입니다.");
-
+			
+			
 			String m_id = request.getParameter("m_id");
 			String m_pw = request.getParameter("m_pw");
+			
+			MemberDto memberDto = new MemberDto(m_id,m_pw);
+			
 			System.out.println("id를 가져옴 : " + m_id);
 			System.out.println("pw를 가져옴 : " + m_pw);
-			request.setAttribute("m_id", m_id);
-			request.setAttribute("m_pw", m_pw);
-
+			
+			request.setAttribute("memberDto", memberDto);
 			MemberLoignService loignService = new MemberLoignServiceImpl();
-			int i = loignService.execute(request, response);
-
-			if (i == -1 || i == 0 || i == -2) {
-				// 0 비밀번호 불일치, -1아이디 없음 , -2 데이터 베이스 오류
-				request.setAttribute("check", i);
+			memberDto = loignService.execute(request, response);
+			
+			HttpSession session = request.getSession();
+			// dto에 들어감 
+			
+			if(memberDto.getM_email() != null) {
+				System.out.println("로그인 성공");
+				session.setAttribute("memberDto",memberDto);
+				session.setAttribute("m_name", memberDto.getM_name());
+				session.setAttribute("m_id", memberDto.getM_Id());
+				session.setAttribute("m_pw", memberDto.getM_pw());
+				session.setAttribute("m_pw", memberDto.getM_pw());
+				session.setAttribute("m_email", memberDto.getM_email());
+				session.setAttribute("m_mobile", memberDto.getM_mobile());
+				System.out.printf("아이디 :%s , 비밀번호:%s , 이름 : %s", memberDto.getM_Id(),memberDto.getM_pw(),memberDto.getM_name());
+				response.sendRedirect("index.jsp");
+			}else {
+				memberDto=null;
+				System.out.println("로그인 실패");
+				session.setAttribute("memberDto",memberDto);
+				
+	            //틀려써! 체크에 1을 담아서 보낸다!
 				RequestDispatcher requestDispatcher = request.getRequestDispatcher("e_loginCheck.jsp");
 				requestDispatcher.forward(request, response);
-				// 1번이면 통과..!
-
-			} else {
-				System.out.println("로그인 성공");
-				HttpSession session = request.getSession();
-				session.setAttribute("m_id", m_id);
-				// 클라이언트 단위로 정보를 유지하려고 HttpSession 객체에 등록 name, value
-				response.sendRedirect("index.jsp");
-			}
-
+			}	
 			
 		// -------------------------
 		// ----- 아이디 찾기 ----------

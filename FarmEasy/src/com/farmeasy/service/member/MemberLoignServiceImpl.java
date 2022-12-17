@@ -15,9 +15,8 @@ public class MemberLoignServiceImpl implements MemberLoignService{
 	}
 	
 	
-	public int execute(HttpServletRequest request, HttpServletResponse response) {
-		String id = (String)request.getAttribute("m_id");
-		String pw = (String)request.getAttribute("m_pw");
-		return memberDao.login(id,pw);
+	public MemberDto execute(HttpServletRequest request, HttpServletResponse response) {
+		MemberDto memberDto = (MemberDto) request.getAttribute("memberDto");
+		return memberDao.login(memberDto);
 	}
 }

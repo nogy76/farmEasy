@@ -276,39 +276,49 @@ public class MemberDao {
 	
 	
 	// 로그인
-	public int login(String m_id, String m_pw) {
+	public MemberDto login(MemberDto memberDto) {
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
-		String sql = "SELECT M_PW FROM TB_MEMBER WHERE M_ID=?";
-		
+		/* String sql = "SELECT M_PW FROM TB_MEMBER WHERE M_ID=?"; */
+		String sql = "SELECT * FROM TB_MEMBER WHERE M_ID=? and M_PW=?";
 		
 		try {
+			
+			String m_id = memberDto.getM_Id();
+			String m_pw = memberDto.getM_pw();
+			
+			System.out.println(m_id + "" + m_pw);
+			//폼에서 넘어온 id랑 비밀번호 세팅해서
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, m_id); // 1번 물음표에 m_id가 들어감
+			pstmt.setString(2, m_pw);
 			rs = pstmt.executeQuery();
+
 			
-			
-			if (rs.next()) {
-	            if(rs.getString(1).equals(m_pw)) { // resultset이 디비에서 쿼리문이 실행했을 때의 값을 들고옴
+			if (rs.next()) {	
+					// resultset이 디비에서 쿼리문이 실행했을 때의 값을 들고옴
 					System.out.println("1번");
-					System.out.println("로그인  성공"+m_id+" "+m_pw );
-					return 1; 
-					//로그인 성공
-				} else {
-					System.out.println("2번");
-					System.out.println("비밀번호 오류"+m_id+" "+m_pw );
-					return 0;
-					//로그인 실패
-				} // end of else
-			} // end of if-첫번째
-			else {   
-				System.out.println("아이디가 없습니다."+m_id+" "+m_pw );
-				return -1;  // 아이디 없음
-			}  
+					System.out.println("로그인  성공");
+					
+					int m_seq = rs.getInt("m_seq");
+					String name = rs.getString("m_name");
+					String id = rs.getString("m_id");
+					String pw = rs.getString("m_pw");
+					String email = rs.getString("m_email");
+					String mobile = rs.getString("m_mobile");
+					String authority = rs.getString("m_authority");
+					String date = rs.getString("m_date");
+					
+					System.out.printf("아이디  : %s ", id);
+					
+					memberDto = new MemberDto(m_seq, name , id, pw, email, mobile, authority, date);
+
+					//로그인 성공 아이디 패스워드가 맞다면
+			} 
 		}catch (Exception e) {
 			e.printStackTrace();
 		}finally {
@@ -321,9 +331,7 @@ public class MemberDao {
 				e2.printStackTrace();
 			}
 		} 
-		System.out.println("디비오류"+m_id+" "+m_pw );
-		return -2;
-		//디비오류
+		return memberDto; 
 	}
 	
 	

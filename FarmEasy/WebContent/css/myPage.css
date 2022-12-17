@@ -157,12 +157,13 @@
         margin-left: 20px;
     }
     
-    .myPage_edit_input{
+    .edit_btn{
         width: 180px;
         height: 30px;
     }
 
-    .myPage_edit_btn input{
+    
+    .myPage_remove_btn input {
         border: none;
         width: 150px;
         height: 35px;
@@ -173,8 +174,30 @@
         color: #fff;
         cursor: pointer;
     }
-
-
+    
+    .myPage_edit_input{
+    	height : 25px;
+    	width : 140px;
+    }
+    
+	.mypage_edit_btn_wrap{
+		text-align:center;
+	}
+	
+ 	 .mypage_edit_btn{
+        border: none;
+        width: 150px;
+        height: 35px;
+        border-radius: 10px;
+        margin-top: 30px;
+        font-size: 15px;
+        background: #3155a4;
+        color: #fff;
+        cursor: pointer;
+    }
+    
+    
+    
 
     #myPage_wrap{
         width: 960px;
@@ -211,5 +234,35 @@
         height: 140px;
         font-size: 1rem;
     }
+    
+    
+    
+    /* 정보 수정 페이지 */
+    #myPage_update{
+		text-align: center;
+    }
+    
+    #myPage_update div{
+    	margin-bottom: 10px;
+    }
+    
+    #myPage_update span, #myPage_update input{
+    	text-align:left;
+	    display: inline-block;
+	    width: 150px;
+	    height: 25px;
+    }
+  
+  	#success{
+  		text-align : center !important;
+  		margin-top : 10px;
+  		height : 30px;
+  		border : none;
+  		border-radius: 10px;
+        font-size: 15px;
+        background: #3155a4;
+        color: #fff;
+        cursor: pointer;
+  	}
 
 

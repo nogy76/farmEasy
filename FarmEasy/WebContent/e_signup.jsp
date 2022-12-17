@@ -32,13 +32,13 @@ $(function() {
 
 <body>
 
-	<form name="reg_frm" action="memberInsert.do" method="post" id="form1" onsubmit="return validate();"> 
+	<form name="form1" action="memberInsert.do" method="post" id="form1" onsubmit="return validate();"> 
 		<div class="main-container">
 			<div class="main-wrap">
 				<fieldset id="signup_fieldset">
 					<header>
 						<div class="logo-wrap">
-							<h1>귀농쉽농 회원가입</h1>
+							<h1><a href="index.jsp">귀농쉽농 회원가입</a></h1>
 						</div>
 					</header>
 					<div class="signup_div">
@@ -68,12 +68,12 @@ $(function() {
 							<tr>
 								<td align=left class="td_name">이메일 주소 <span>*</span></td>
 								<td><input class="login-input-wrap" type="email"
-									name="m_email" required></input></td>
+									name="m_email" id="m_email" required></input></td>
 							</tr>
 							<tr>
 								<td align=left class="td_name">휴대전화 <span>*</span></td>
-								<td><input class="login-input-wrap" type="tel"
-									name="m_mobile" required></input></td>
+								<td><input class="login-input-wrap" type="tel" placeholder="010-1234-1234형식으로 입력해주세요."
+									name="m_mobile" id="m_mobile" required></input></td>
 							</tr>
 						</table>
 					</div>
