@@ -18,7 +18,7 @@ public class BoardReplyDto {
 	}
 	
 	public BoardReplyDto(int reply_id, String user_idName, int reply_bundle, int reply_order, int reply_level, String reply_content, String insert_date, String update_date) {
-		this.reply_id = reply_id;
+		this.reply_id = reply_id; 
 		this.user_idName = user_idName;
 		this.reply_bundle = reply_bundle;
 		this.reply_order = reply_order;

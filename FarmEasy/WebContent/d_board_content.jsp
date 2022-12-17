@@ -43,13 +43,13 @@
 		}
 	}
 	
-/* 	function deleteReply() {
+ 	function replyDelete(reply_id) {
 		result = confirm("정말로 댓글을 삭제하시겠습니까?");
 		
 		if(result) {
-			document.
+			document.location.href="/FarmEasy/replyDelete.do?reply_id="+reply_id;
 		}
-	} */
+	}
 </script>
 <script src="js/index.js" defer></script>
 <script
@@ -127,7 +127,7 @@
 			<%
 				if(boardFileDto.getBoard_file_name() != null) {
 			%>
-				<p class="post_up"><a href="upload/<%=boardFileDto.getBoard_file_name()%>" download="<%=boardFileDto.getBoard_file_name() %>"><%=boardFileDto.getBoard_file_name() %> [<%=boardFileDto.getBoard_file_byte() %> byte]</a></p>
+				<p class="post_up"><a href="fileUpload/<%=boardFileDto.getBoard_file_name()%>" download="<%=boardFileDto.getBoard_file_name() %>"><%=boardFileDto.getBoard_file_name() %> [<%=boardFileDto.getBoard_file_byte() %> byte]</a></p>
 			<%
 				} else {
 			%>	
@@ -161,6 +161,7 @@
 	if(replyList != null) {
 		for(BoardReplyDto replyDto : replyList) {
 %>
+		<form name="FEForm2" action="replyUpdate.do">
 			<div class="wd-basic-960 mb-auto mt-4" id="comment" style="height: auto">
 				<p>작성자 ID : <%=replyDto.getUser_idName() %></p>
 				<p class="mt-4"><pre><%=replyDto.getReply_content() %></pre>
@@ -176,10 +177,10 @@
 		<%
 			}
 		%>
-				<a href="/FarmEasy/replyUpdate.do?reply_id=<%=replyDto.getReply_id() %>">수정</a>
-				<a id="deleteReply" href="/FarmEasy/replyDelete.do?reply_id=<%=replyDto.getReply_id() %>">삭제</a>
+				<a href="javascript:replyUpdate(<%=replyDto.getReply_id() %>)">수정</a>
+				<a href="javascript:replyDelete(<%=replyDto.getReply_id() %>)">삭제</a>
 			</div>
-
+		</form>
 <%
 		}
 	}

@@ -59,6 +59,7 @@ public class FrontController extends HttpServlet {
 
 			// 상대 파일 경로
 			String saveFolder = request.getSession().getServletContext().getRealPath("/fileUpload");
+			System.out.println(saveFolder);
 			int maxSize = 5 * 1024 * 1024;
 
 			// 파일 업로드/다운로드를 위한 로직. form에서 encType을 다르게 받기 떄문에 multi.getParameter를 사용해야 값을
