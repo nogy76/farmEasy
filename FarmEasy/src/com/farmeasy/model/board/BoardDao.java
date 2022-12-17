@@ -74,7 +74,6 @@ public class BoardDao {
 				e2.printStackTrace();
 			}
 		}
-		
 	}
 	
 	//게시글 갱신을 위한 메소드
@@ -215,6 +214,10 @@ public class BoardDao {
 		return boardList;
 	}
 	
+//	---------------------
+//	파일 업로드를 위한 Dao 메소드
+//	---------------------
+
 	//파일 업로드
 	public void uploadFile(BoardFileDto boardFileDto) {
 		Connection connection = null;
@@ -311,5 +314,130 @@ public class BoardDao {
 		return boardFileDto;
 	}
 	
+//	-------------------
+//	댓글 기능을 위한 Dao 메소드
+//	-------------------
+	
+	//댓글 작성
+	public void insertReply(BoardReplyDto replyDto) {
+		Connection connection = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			connection = getConnection();
+			pstmt = connection.prepareStatement("insert into fe_reply(reply_id, board_id, user_idName, reply_bundle, reply_order, reply_level, reply_content)"
+					+ " values(fe_reply_seq.nextval,?,?,fe_reply_seq.currval,?,?,?)");
+			pstmt.setInt(1, replyDto.getBoard_id());
+			pstmt.setString(2, replyDto.getUser_idName());
+			pstmt.setInt(3, replyDto.getReply_order());
+			pstmt.setInt(4, replyDto.getReply_level());
+			pstmt.setString(5, replyDto.getReply_content());
+			
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("insertReply() 예외 발생");
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				connection.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+	}
+	
+	
+	//댓글 리스트
+	public ArrayList<BoardReplyDto> getReplyList(int board_id) {
+		ArrayList<BoardReplyDto> replyList = new ArrayList<BoardReplyDto>();
+		
+		Connection connection = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			connection = getConnection();
+			pstmt = connection.prepareStatement("select * from fe_reply where board_id="+board_id+" order by reply_id");
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				int reply_id = rs.getInt("reply_id");
+				String user_idName = rs.getString("user_idName");
+				int reply_bundle = rs.getInt("reply_bundle");
+				int reply_order = rs.getInt("reply_order");
+				int reply_level = rs.getInt("reply_level");
+				String reply_content = rs.getString("reply_content");
+				String insert_date = rs.getString("insert_date");
+				String update_date = rs.getString("update_date");
+				
+				replyList.add(new BoardReplyDto(reply_id, user_idName, reply_bundle, reply_order, reply_level, reply_content, insert_date, update_date));
+			}
+		} catch (SQLException e) {
+			System.out.println("getReplyList() 예외 발생");
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				pstmt.close();
+				connection.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		
+		return replyList;
+	}
+	
+	
+	//게시글 갱신을 위한 메소드
+	public void updateReply(int board_id, BoardReplyDto replyDto) {
+		Connection connection = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			connection = getConnection();
+			pstmt = connection.prepareStatement("update fe_reply set reply_content=?, update_date=sysdate where board_id="+board_id);
+			pstmt.setString(1, replyDto.getReply_content());
+			
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("updateReply() 예외 발생!");
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				connection.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+	}
+	
+	
+	//게시글 삭제를 위한 메소드
+	public void deleteReply(int reply_id) {
+		Connection connection = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			connection = getConnection();
+			pstmt = connection.prepareStatement("delete from fe_reply where reply_id="+reply_id);
+			
+			pstmt.executeUpdate();
+			
+		} catch(SQLException e) {
+			System.out.println("deleteBoard() 예외 발생");
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				connection.close();
+			} catch(Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+	}
 	
 }

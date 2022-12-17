@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="com.farmeasy.model.board.*" %>
+	pageEncoding="UTF-8" import="com.farmeasy.model.board.*, java.util.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>		
 
 <%
 		BoardDao boardDao = BoardDao.getInstance();
 		BoardDto boardDto = boardDao.getBoardDB(Integer.parseInt(request.getParameter("board_id")));
 		BoardFileDto boardFileDto = boardDao.getBoardFileDB(Integer.parseInt(request.getParameter("board_id")));
+		ArrayList<BoardReplyDto> replyList = boardDao.getReplyList(Integer.parseInt(request.getParameter("board_id")));
+		
 		session.setAttribute("updateDeleteBoardId", Integer.parseInt(request.getParameter("board_id")));
 		String userIdName = "";
 		if(session.getAttribute("m_id") != null) {
@@ -40,6 +42,14 @@
 			return;
 		}
 	}
+	
+/* 	function deleteReply() {
+		result = confirm("정말로 댓글을 삭제하시겠습니까?");
+		
+		if(result) {
+			document.
+		}
+	} */
 </script>
 <script src="js/index.js" defer></script>
 <script
@@ -124,7 +134,7 @@
 				<p class="post_up">파일 없음 [0 byte]</p>			
 			<%
 				}
-			%>			
+			%>
 			<div class="board_write">
 			
 			<%
@@ -144,12 +154,43 @@
 			</div>
 		</div>
 	</form>
-	<form name="FEForm2" method="post" action="boardReplyInsert.do">
+	
+	
+<%
+	/* ArrayList<BoardReplyDto> replyList = (ArrayList<BoardReplyDto>)request.getAttribute("replyList"); */
+	if(replyList != null) {
+		for(BoardReplyDto replyDto : replyList) {
+%>
+			<div class="wd-basic-960 mb-auto mt-4" id="comment" style="height: auto">
+				<p>작성자 ID : <%=replyDto.getUser_idName() %></p>
+				<p class="mt-4"><pre><%=replyDto.getReply_content() %></pre>
+		<%
+			if(replyDto.getUpdate_date() != null) {
+		%>
+				<p>작성 날짜 : <%=replyDto.getInsert_date() %></p>
+				<p>수정 날짜 : <%=replyDto.getUpdate_date() %></p>
+		<%
+			} else {
+		%>
+				<p>작성 날짜 : <%=replyDto.getInsert_date() %></p>
+		<%
+			}
+		%>
+				<a href="/FarmEasy/replyUpdate.do?reply_id=<%=replyDto.getReply_id() %>">수정</a>
+				<a id="deleteReply" href="/FarmEasy/replyDelete.do?reply_id=<%=replyDto.getReply_id() %>">삭제</a>
+			</div>
+
+<%
+		}
+	}
+%>
+	
+	
+	<form name="FEForm2" method="post" action="replyInsert.do">
 		<div class="wd-basic-960 mb-auto mt-4" id="comment" style="height: auto">
 			<p>댓글등록</p>
-			<input type="text" title="제목" maxlength="1900">
-			<button type="button">등록</button>
-			<p>0/1000byte</p>
+			<input type="text" name="reply_content" maxLength="1900">
+			<button type="submit">등록</button>
 		</div>
 	</form>
 

@@ -72,7 +72,7 @@
 
 	<div class="wd-basic-960 mb-auto mt-4" id="info-bottom"
 		style="height: 650px;">
-		<form name="FEForm1" method="post" action="boardUpload.do" encType="multipart/form-data">
+		<form name="FEForm1" method="post" action="boardInsert.do" encType="multipart/form-data">
 			<table>
 				<tr>
 					<th>제목</th>

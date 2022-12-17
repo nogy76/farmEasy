@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.farmeasy.model.board.BoardDao;
 import com.farmeasy.model.board.BoardDto;
+import com.farmeasy.model.board.BoardFileDto;
 
 public class BoardInsertServiceImpl implements BoardInsertService {
 	private BoardDao boardDao;
@@ -15,8 +16,13 @@ public class BoardInsertServiceImpl implements BoardInsertService {
 
 	@Override
 	public boolean execute(HttpServletRequest request, HttpServletResponse response) {
-		boardDao.insertBoard((BoardDto)request.getAttribute("boardDto"));
-		return false;
+		if((BoardFileDto)request.getAttribute("boardFileDto") != null) {
+			boardDao.insertBoard((BoardDto)request.getAttribute("boardDto"));
+			boardDao.uploadFile((BoardFileDto)request.getAttribute("boardFileDto"));
+		} else {
+			boardDao.insertBoard((BoardDto)request.getAttribute("boardDto"));
+		}
+		return true;
 	}
 
 }

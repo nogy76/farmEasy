@@ -25,10 +25,13 @@ drop SEQUENCE fe_board_seq;
 CREATE TABLE fe_reply (
     reply_id INT PRIMARY KEY,
     board_id INT NOT NULL,
+    user_idName VARCHAR2(20) NOT NULL,
+    reply_bundle INT NOT NULL,
+    reply_order INT DEFAULT 0,
+    reply_level INT DEFAULT 0,
     reply_content VARCHAR2(100) DEFAULT NULL,
-    insert_date VARCHAR2(10) DEFAULT TO_CHAR(sysdate, 'yyyy.mm.dd'),
-    update_date VARCHAR2(10) DEFAULT TO_CHAR(sysdate, 'yyyy.mm.dd'),
-    parent_reply_id INT DEFAULT 0
+    insert_date DATE DEFAULT sysdate,
+    update_date DATE DEFAULT NULL
 );
 
 create sequence fe_reply_seq start with 1 increment by 1;
