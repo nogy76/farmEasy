@@ -15,7 +15,7 @@ public class ReplyUpdateServiceImpl implements ReplyUpdateService {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
-		boardDao.updateReply((int)request.getAttribute("updateBoardId"), (BoardReplyDto)request.getAttribute("replyDto"));
+		boardDao.updateReply((int)request.getAttribute("reply_id"), (BoardReplyDto)request.getAttribute("replyDto"));
 	}
 	
 }

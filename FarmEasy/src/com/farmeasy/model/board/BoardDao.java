@@ -348,56 +348,14 @@ public class BoardDao {
 	}
 	
 	
-	//댓글 리스트
-	public ArrayList<BoardReplyDto> getReplyList(int board_id) {
-		ArrayList<BoardReplyDto> replyList = new ArrayList<BoardReplyDto>();
-		
-		Connection connection = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		try {
-			connection = getConnection();
-			pstmt = connection.prepareStatement("select * from fe_reply where board_id="+board_id+" order by reply_id");
-			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				int reply_id = rs.getInt("reply_id");
-				String user_idName = rs.getString("user_idName");
-				int reply_bundle = rs.getInt("reply_bundle");
-				int reply_order = rs.getInt("reply_order");
-				int reply_level = rs.getInt("reply_level");
-				String reply_content = rs.getString("reply_content");
-				String insert_date = rs.getString("insert_date");
-				String update_date = rs.getString("update_date");
-				
-				replyList.add(new BoardReplyDto(reply_id, user_idName, reply_bundle, reply_order, reply_level, reply_content, insert_date, update_date));
-			}
-		} catch (SQLException e) {
-			System.out.println("getReplyList() 예외 발생");
-			e.printStackTrace();
-		} finally {
-			try {
-				rs.close();
-				pstmt.close();
-				connection.close();
-			} catch (Exception e2) {
-				e2.printStackTrace();
-			}
-		}
-		
-		return replyList;
-	}
-	
-	
 	//게시글 갱신을 위한 메소드
-	public void updateReply(int board_id, BoardReplyDto replyDto) {
+	public void updateReply(int reply_id, BoardReplyDto replyDto) {
 		Connection connection = null;
 		PreparedStatement pstmt = null;
 		
 		try {
 			connection = getConnection();
-			pstmt = connection.prepareStatement("update fe_reply set reply_content=?, update_date=sysdate where board_id="+board_id);
+			pstmt = connection.prepareStatement("update fe_reply set reply_content=?, update_date=sysdate where reply_id="+reply_id);
 			pstmt.setString(1, replyDto.getReply_content());
 			
 			pstmt.executeUpdate();
@@ -438,6 +396,91 @@ public class BoardDao {
 				e2.printStackTrace();
 			}
 		}
+	}
+	
+	//특정 게시글을 가져오는 메소드
+	public BoardReplyDto getReply(int reply_id) {
+		BoardReplyDto replyDto = null;
+		
+		Connection connection = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			connection = getConnection();
+			pstmt = connection.prepareStatement("select * from fe_reply where reply_id=?");
+			pstmt.setInt(1, reply_id);
+			rs = pstmt.executeQuery();
+			
+			//데이터 하나만 끌고 오기에 rs.next()를 한 번만 실행
+			rs.next();
+			
+			String user_idName = rs.getString("user_idName");
+			int reply_bundle = rs.getInt("reply_bundle");
+			int reply_order = rs.getInt("reply_order");
+			int reply_level = rs.getInt("reply_level");
+			String reply_content = rs.getString("reply_content");
+			String insert_date = rs.getString("insert_date");
+			String update_date = rs.getString("update_date");
+			
+			replyDto = new BoardReplyDto(reply_id, user_idName, reply_bundle, reply_order, reply_level, reply_content, insert_date, update_date);
+			
+		} catch (SQLException e) {
+			System.out.println("getReply 예외 발생!");
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				pstmt.close();
+				connection.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+				
+		return replyDto;
+	}	
+	
+	
+	//댓글 리스트
+	public ArrayList<BoardReplyDto> getReplyList(int board_id) {
+		ArrayList<BoardReplyDto> replyList = new ArrayList<BoardReplyDto>();
+		
+		Connection connection = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			connection = getConnection();
+			pstmt = connection.prepareStatement("select * from fe_reply where board_id="+board_id+" order by reply_id");
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				int reply_id = rs.getInt("reply_id");
+				String user_idName = rs.getString("user_idName");
+				int reply_bundle = rs.getInt("reply_bundle");
+				int reply_order = rs.getInt("reply_order");
+				int reply_level = rs.getInt("reply_level");
+				String reply_content = rs.getString("reply_content");
+				String insert_date = rs.getString("insert_date");
+				String update_date = rs.getString("update_date");
+				
+				replyList.add(new BoardReplyDto(reply_id, user_idName, reply_bundle, reply_order, reply_level, reply_content, insert_date, update_date));
+			}
+		} catch (SQLException e) {
+			System.out.println("getReplyList() 예외 발생");
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				pstmt.close();
+				connection.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		
+		return replyList;
 	}
 	
 }

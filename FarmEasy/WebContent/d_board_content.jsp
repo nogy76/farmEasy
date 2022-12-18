@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="com.farmeasy.model.board.*, java.util.*" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="com.farmeasy.model.board.*, java.util.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>		
 
 <%
@@ -25,35 +24,11 @@
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/board_content.css">
 <title>게시판 내용</title>
-
-<link
-	href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap"
-	rel="stylesheet" />
-<script src="https://kit.fontawesome.com/77e29b57dd.js"
-	crossorigin="anonymous"></script>
-<script>	
-	function deleteCheck() {
-		result = confirm("정말로 게시글을 삭제하시겠습니까?");
-		
-		if(result) {
-			document.FEForm1.action="boardDelete.do";
-			document.FEForm1.submit();
-		} else {
-			return;
-		}
-	}
-	
- 	function replyDelete(reply_id) {
-		result = confirm("정말로 댓글을 삭제하시겠습니까?");
-		
-		if(result) {
-			document.location.href="/FarmEasy/replyDelete.do?reply_id="+reply_id;
-		}
-	}
-</script>
-<script src="js/index.js" defer></script>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet" />
+<script src="https://kit.fontawesome.com/77e29b57dd.js" crossorigin="anonymous"></script>
+<script src="js/index.js"></script>
+<script src="js/reply.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 </head>
 <body>
 	<!-- 게시판 확인 -->
@@ -157,14 +132,12 @@
 	
 	
 <%
-	/* ArrayList<BoardReplyDto> replyList = (ArrayList<BoardReplyDto>)request.getAttribute("replyList"); */
 	if(replyList != null) {
 		for(BoardReplyDto replyDto : replyList) {
 %>
-		<form name="FEForm2" action="replyUpdate.do">
 			<div class="wd-basic-960 mb-auto mt-4" id="comment" style="height: auto">
 				<p>작성자 ID : <%=replyDto.getUser_idName() %></p>
-				<p class="mt-4"><pre><%=replyDto.getReply_content() %></pre>
+				<p class="mt-4"><%=replyDto.getReply_content() %>
 		<%
 			if(replyDto.getUpdate_date() != null) {
 		%>
@@ -180,12 +153,10 @@
 				<a href="javascript:replyUpdate(<%=replyDto.getReply_id() %>)">수정</a>
 				<a href="javascript:replyDelete(<%=replyDto.getReply_id() %>)">삭제</a>
 			</div>
-		</form>
 <%
 		}
 	}
 %>
-	
 	
 	<form name="FEForm2" method="post" action="replyInsert.do">
 		<div class="wd-basic-960 mb-auto mt-4" id="comment" style="height: auto">
