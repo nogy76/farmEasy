@@ -322,14 +322,11 @@ public class FrontController extends HttpServlet {
 			response.sendRedirect("/FarmEasy/index.jsp");
 
 			
-<<<<<<< HEAD
 		// 로그인 커맨드
-=======
 		// -------------------------
 		// --------- 로그인 ----------
 		// -------------------------
 			
->>>>>>> branch 'main' of https://github.com/nogy76/farmEasy
 		} else if(command.equals("/memberLogin.do")) {
 			
 			System.out.println("memberLogin.do 입니다.");
