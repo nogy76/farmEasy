@@ -1,11 +1,14 @@
 package com.farmeasy.model.member;
 
-import javax.naming.*;
-import java.sql.*;
-import java.util.*;
-import javax.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
-import sun.security.mscapi.CKeyPairGenerator.RSA;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
 
 public class MemberDao {
 
@@ -57,7 +60,7 @@ public class MemberDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
+
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement("select * from TB_MEMBER order by m_seq desc");
@@ -394,7 +397,7 @@ public class MemberDao {
 		
 		try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement("INSERT INTO TB_MEMBER(m_seq, m_name, m_id, m_pw, m_email, m_mobile) VALUES(m_seq.nextval,?,?,?,?,?)");
+			pstmt = conn.prepareStatement("INSERT INTO TB_MEMBER(m_seq, m_name, m_id, m_pw, m_email, m_mobile, m_score) VALUES(m_seq.nextval,?,?,?,?,?,null)");
 			pstmt.setString(1, memberDto.getM_name());
 			pstmt.setString(2, memberDto.getM_Id());
 			pstmt.setString(3, memberDto.getM_pw());

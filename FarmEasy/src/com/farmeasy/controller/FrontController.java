@@ -316,7 +316,8 @@ public class FrontController extends HttpServlet {
 			memberDto.setM_mobile(request.getParameter("m_mobile"));
 			memberDto.setM_authority(request.getParameter("m_authority"));
 			memberDto.setM_date(request.getParameter("m_date"));
-
+			memberDto.setM_score(request.getParameter("m_score"));
+			
 			request.setAttribute("memberDto", memberDto);
 
 			MemberInsertService InsertService = new MemberInsertServiceImpl();
@@ -357,6 +358,7 @@ public class FrontController extends HttpServlet {
 				session.setAttribute("m_pw", memberDto.getM_pw());
 				session.setAttribute("m_email", memberDto.getM_email());
 				session.setAttribute("m_mobile", memberDto.getM_mobile());
+				session.setAttribute("m_score", memberDto.getM_score());
 				System.out.printf("아이디 :%s , 비밀번호:%s , 이름 : %s, 시퀀스 : %s", memberDto.getM_Id(),memberDto.getM_pw(),memberDto.getM_name(),memberDto.getM_seq());
 				response.sendRedirect("index.jsp");
 			}else {

@@ -88,7 +88,7 @@
 		        <li>리스트 수<p>3</p></li>
 		      </ul>
 		<c:choose>
-			<c:when test="${sessionScope.m_score eq null}">
+			<c:when test="${m_score eq null}">
 		      <div class="myPage_score">아직 자가 진단을 하지 않았습니다. <a href="index_check.jsp"> 하러가기 ▶ </a></div>
 		    </c:when>
 		    <c:otherwise>
