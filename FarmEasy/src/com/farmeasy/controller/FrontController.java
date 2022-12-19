@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import com.farmeasy.model.board.*;
 import com.farmeasy.model.member.*;
@@ -59,6 +60,7 @@ public class FrontController extends HttpServlet {
 
 			// 상대 파일 경로
 			String saveFolder = request.getSession().getServletContext().getRealPath("/fileUpload");
+			System.out.println(saveFolder);
 			int maxSize = 5 * 1024 * 1024;
 
 			// 파일 업로드/다운로드를 위한 로직. form에서 encType을 다르게 받기 떄문에 multi.getParameter를 사용해야 값을
@@ -138,7 +140,7 @@ public class FrontController extends HttpServlet {
 			String saveFolder = request.getSession().getServletContext().getRealPath("/fileUpload");
 			int maxSize = 5 * 1024 * 1024;
 
-			// 파일 업로드/다운로드를 위한 로직. form에서 encType을 다르게 받기 떄문에 multi.getParameter를 사용해야 값을
+			// 파일 업로드/다운로드를 위한 로직. form에서 encType을 다르게 받기 때문에 multi.getParameter를 사용해야 값을
 			// 불러올 수 있음
 			try {
 				MultipartRequest multi = null;
@@ -296,7 +298,11 @@ public class FrontController extends HttpServlet {
 			}
 
 			
-		// 회원 insert 커맨드
+			
+		// -------------------------
+		// -------- 회원 가입 ---------
+		// -------------------------
+			
 		} else if (command.equals("/memberInsert.do")) {
 
 			System.out.println("memberInsert.do 입니다");
@@ -318,8 +324,11 @@ public class FrontController extends HttpServlet {
 			response.sendRedirect("/FarmEasy/index.jsp");
 
 			
-		// 로그인 커맨드
-} else if(command.equals("/memberLogin.do")) {
+		// -------------------------
+		// --------- 로그인 ----------
+		// -------------------------
+			
+		} else if(command.equals("/memberLogin.do")) {
 			
 			System.out.println("memberLogin.do 입니다.");
 			
@@ -342,27 +351,29 @@ public class FrontController extends HttpServlet {
 			if(memberDto.getM_email() != null) {
 				System.out.println("로그인 성공");
 				session.setAttribute("memberDto",memberDto);
+				session.setAttribute("m_seq",memberDto.getM_seq());
 				session.setAttribute("m_name", memberDto.getM_name());
 				session.setAttribute("m_id", memberDto.getM_Id());
 				session.setAttribute("m_pw", memberDto.getM_pw());
-				session.setAttribute("m_pw", memberDto.getM_pw());
 				session.setAttribute("m_email", memberDto.getM_email());
 				session.setAttribute("m_mobile", memberDto.getM_mobile());
-				System.out.printf("아이디 :%s , 비밀번호:%s , 이름 : %s", memberDto.getM_Id(),memberDto.getM_pw(),memberDto.getM_name());
+				System.out.printf("아이디 :%s , 비밀번호:%s , 이름 : %s, 시퀀스 : %s", memberDto.getM_Id(),memberDto.getM_pw(),memberDto.getM_name(),memberDto.getM_seq());
 				response.sendRedirect("index.jsp");
 			}else {
 				memberDto=null;
 				System.out.println("로그인 실패");
 				session.setAttribute("memberDto",memberDto);
-				
-	            //틀려써! 체크에 1을 담아서 보낸다!
+				request.setAttribute("check", -1);
+	            //틀려써! 체크에 -1을 담아서 보낸다!
 				RequestDispatcher requestDispatcher = request.getRequestDispatcher("e_loginCheck.jsp");
 				requestDispatcher.forward(request, response);
 			}	
 			
+			
 		// -------------------------
 		// ----- 아이디 찾기 ----------
 		// -------------------------
+			
 		} else if (command.equals("/memberFindId.do")) {
 
 			System.out.println("memberFindId.do 입니다.");
@@ -390,11 +401,11 @@ public class FrontController extends HttpServlet {
 				requestDispatcher.forward(request, response);
 			}
 
-
 			
 		// -------------------------
-		// ----- 비밀번호 찾기 ----------
+		// ----- 비밀번호 찾기 ---------
 		// -------------------------
+			
 		} else if (command.equals("/memberFindPw.do")) {
 
 			System.out.println("memberFindPw.do 입니다");
@@ -431,41 +442,117 @@ public class FrontController extends HttpServlet {
 
 		} // end of findPw.do
 		
+		
+		
+		// -------------------------
+		// -------- 회원 수정 ---------
+		// -------------------------
+		
 		else if (command.equals("/memberUpdate.do")) {
 
 			System.out.println("memberUpdate.do 입니다");
 
 			MemberDto memberDto = new MemberDto();
 
+			int m_seq = (int) request.getSession().getAttribute("m_seq");
+			
+			memberDto.setM_seq(m_seq);
 			memberDto.setM_pw(request.getParameter("m_pw"));
 			memberDto.setM_email(request.getParameter("m_email"));
 			memberDto.setM_mobile(request.getParameter("mobile"));
+			
 
 			// 입력받은 값 콘솔창에서 확인
-			String m_name = request.getParameter("m_name");
-			String m_id = request.getParameter("m_id");
+			String m_pw = request.getParameter("m_pw");
 			String m_email = request.getParameter("m_email");
-			System.out.printf("비밀번호 찾기에서 입력된 값 %n 아이디 : %s %n 이름 : %s %n 이메일 : %s %n", m_id, m_name, m_email);
+			String mobile = request.getParameter("mobile");
+			System.out.printf("정보 수정에서의 값 %n 비번 : %s %n 이메일 : %s %n 핸드폰 : %s %n 시퀀스 : %s", m_pw, m_email, mobile, m_seq);
 			// 입력받은 값 콘솔창에서 확인
 
 			request.setAttribute("memberDto", memberDto);
+			request.setAttribute("m_seq", m_seq);
+			MemberUpdateService memberUpdateService = new MemberUpdateServiceImpl();
+			memberUpdateService.execute(request, response);
+			
+			HttpSession session = request.getSession();
+			session.setAttribute("memberDto",memberDto);
+			session.setAttribute("m_pw", memberDto.getM_pw());
+			session.setAttribute("m_email", memberDto.getM_email());
+			session.setAttribute("m_mobile", memberDto.getM_mobile());
+			
+			response.sendRedirect("/FarmEasy/f_myPage.jsp");
+			//정보 수정되었습니다. 알람기능 나중에 추가?
+		} // end of memberUpdate.do
+		
+		
+		// -------------------------
+		// -------- 회원 탈퇴 ---------
+		// -------------------------
+		
+		else if (command.equals("/memberDelete.do")) {
 
-			MemberFindPwService findPwService = new MemberFindPwServiceImpl();
-			String i = findPwService.execute(request, response);
-			// set해서 보내기~
+			System.out.println("memberDelete.do 입니다");
 
-			if (i == "0" || i == "-1" || i == "1") {
-				request.setAttribute("findpw", i);
-				// 위에 request들고 체크jsp로 이동
-				RequestDispatcher requestDispatcher = request.getRequestDispatcher("e_loginFindPw.jsp");
-				requestDispatcher.forward(request, response);
-			} else {
-				request.setAttribute("findpw", i);
-				RequestDispatcher requestDispatcher = request.getRequestDispatcher("e_loginFindPw.jsp");
+			int m_seq = (int) request.getSession().getAttribute("m_seq");
+			String m_pw = request.getParameter("m_pw");
+			request.setAttribute("m_seq", m_seq);
+			request.setAttribute("m_pw", m_pw);
+
+			MemberDeleteService memberDeleteService = new MemberDeleteServiceImpl();
+			boolean bo = memberDeleteService.execute(request, response);
+			if(bo) {
+				response.sendRedirect("/FarmEasy/e_logout.jsp");
+			}else {
+				request.setAttribute("check", -1);
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("e_loginCheck.jsp");
 				requestDispatcher.forward(request, response);
 			}
+		
+			//정보 수정되었습니다. 알람기능 나중에 추가?
+		} // end of memberDelete.do
+		
+		
+		
+		// -------------------------
+		// -------- 점수 체크 ---------
+		// -------------------------
+			
+		
+		else if (command.equals("/check_score.do")) {
 
-		} // end of memberUpdate.do
+				System.out.println("check_score.do 입니다.");
+				
+				MemberDto memberDto = new MemberDto();
+				
+				String m_score = request.getParameter("m_score");
+				memberDto.setM_score(m_score);
+				
+				if(request.getSession().getAttribute("m_seq") != null) {
+					int m_seq = (int) request.getSession().getAttribute("m_seq");					
+					System.out.println("m_score를 가져옴 : " + m_score + "m_seq : " + m_seq);
+					memberDto.setM_seq(m_seq);
+					request.setAttribute("memberDto", memberDto);
+					request.setAttribute("m_seq", m_seq);
+				}else {
+					RequestDispatcher requestDispatcher = request.getRequestDispatcher("index_check.jsp");
+					
+				}
+
+				
+				MemberCheckScoreService checkScoreService = new MemberCheckScoreServiceImpl();
+
+				if(checkScoreService.execute(request, response)) {
+					HttpSession session = request.getSession();
+					session.setAttribute("memberDto",memberDto);
+					session.setAttribute("m_score", memberDto.getM_score());
+					response.sendRedirect("/FarmEasy/index_check.jsp");
+				}else {
+					response.sendRedirect("/FarmEasy/index_check.jsp");
+				}
+				
+				
+	}
+		
 		
 
 	} // end of actionDo

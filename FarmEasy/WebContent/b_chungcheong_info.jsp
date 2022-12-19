@@ -97,42 +97,42 @@
 					<th>시도</th>
 					<th>시군구</th>
 					<th>정책명</th>
-					<th>자세히 보기</th>
+					<th>찜하기</th>
 				</tr>
 				<tr>
 					<td>282</td>
 					<td>충청남도</td>
 					<td>공주시</td>
 					<td>2022 귀농귀촌인 공주탐험대 운영</td>
-					<td><a href="#" onclick="popInfo()">[자세히 보기]</a></td>
+					<td>♡</td>
 				</tr>
 				<tr>
 					<td>281</td>
 					<td>충청남도</td>
 					<td>공주시</td>
 					<td>2022 귀농귀촌인 역량강화 교육</td>
-					<td><a href="#" onclick="popInfo()">[자세히 보기]</a></td>
+					<td>♡</td>
 				</tr>
 				<tr>
 					<td>280</td>
 					<td>충청남도</td>
 					<td>태안군</td>
 					<td>귀농귀촌 동네작가 운영</td>
-					<td><a href="#" onclick="popInfo()">[자세히 보기]</a></td>
+					<td>♡</td>
 				</tr>
 				<tr>
 					<td>279</td>
 					<td>충청북도</td>
 					<td>영동군</td>
 					<td>2022년 청년 귀농귀촌 동아리 지원</td>
-					<td><a href="#" onclick="popInfo()">[자세히 보기]</a></td>
+					<td>♡</td>
 				</tr>
 				<tr>
 					<td>278</td>
 					<td>충청북도</td>
 					<td>영동군</td>
 					<td>2022년 귀농 주택구입신축 융자사업</td>
-					<td><a href="#" onclick="popInfo()">[자세히 보기]</a></td>
+					<td>♡</td>
 				</tr>
 			</table>
 		</div>

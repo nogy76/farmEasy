@@ -14,13 +14,7 @@
 <c:choose>
 	<c:when test="${check == -1}">
 		<script type="text/javascript">
-			alert("아이디가 없습니다.");
-			history.back();
-		</script>
-	</c:when>
-	<c:when test="${check == 0}">
-		<script type="text/javascript">
-			alert("비밀번호가 틀렸습니다.");
+			alert("정보를 다시 입력해주세요");
 			history.back();
 		</script>
 	</c:when>

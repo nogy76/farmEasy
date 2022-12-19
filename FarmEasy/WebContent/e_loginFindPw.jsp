@@ -32,7 +32,7 @@
 			history.back();
 		</script>
 	</c:when>
-	<c:otherwise>
+<c:otherwise>
 	
 	<div id="headLine"><a href="index.jsp">귀농쉽농</a></div>
 

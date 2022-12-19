@@ -112,7 +112,7 @@
 					<li>나는 왜 귀농·귀촌을 하려고 하는가?귀농·귀촌의 장·단점은? 등 질문을 끊임없이 자신에게 물어야 한다.</li>
 					<li>귀농귀촌종합센터' 홈페이지 - '귀농귀촌상담' - '자가진단' 을 이용해 보아도 좋을 것이다.</li>
 					<li><a
-						href="https://www.returnfarm.com:444/cmn/returnFarm/module/adviceSelf/adviceSelfList.do?tabs=01">귀농
+						href="/FarmEasy/index_check.jsp">귀농
 							자가진단 해보기 <span> > </span>
 					</a></li>
 				</ul>
