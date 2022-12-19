@@ -234,25 +234,23 @@ public class FrontController extends HttpServlet {
 		} else if (command.equals("/replyUpdate.do")) {
 
 			System.out.println("replyUpdate.do 입니다.");
-			HttpSession session = request.getSession();
-
-			int updateBoardId = (int) session.getAttribute("updateDeleteBoardId");
+			
+//			HttpSession session = request.getSession();
+//			int updateId = (int) session.getAttribute("updateDeleteBoardId");
 
 			// DB에 넣기 위해 객체 생성
 			BoardReplyDto replyDto = new BoardReplyDto();
 
 			replyDto.setReply_content(request.getParameter("reply_content"));
-
-			request.setAttribute("updateBoardId", updateBoardId);
+			
+			request.setAttribute("reply_id", Integer.parseInt(request.getParameter("reply_id")));
 			request.setAttribute("replyDto", replyDto);
 
-			// 파일 업로드를 하지 않고 그냥 게시글만 쓸 경우
 			ReplyUpdateService replyUpdateService = new ReplyUpdateServiceImpl();
 			replyUpdateService.execute(request, response);
 
-			RequestDispatcher dispatcher = request
-					.getRequestDispatcher("/d_board_content.jsp?board_id=" + updateBoardId);
-			dispatcher.forward(request, response);
+//			RequestDispatcher dispatcher = request.getRequestDispatcher("/d_board_content.jsp?board_id=" + updateId);
+//			dispatcher.forward(request, response);
 
 			
 		// 댓글 삭제 커맨드
@@ -320,7 +318,7 @@ public class FrontController extends HttpServlet {
 
 			
 		// 로그인 커맨드
-} else if(command.equals("/memberLogin.do")) {
+		} else if(command.equals("/memberLogin.do")) {
 			
 			System.out.println("memberLogin.do 입니다.");
 			
