@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,17 +26,40 @@
 
         $(document).ready(function(){
         $('#a_click').on({
-            click:function(){
+            click:function(e){
             var checkedLen = $('input:checked').length;
             var valueCheckedLen = $('input[value="Y"]:checked').length;
             if(len == checkedLen){
-                $('.cnt').text(valueCheckedLen)
+                $('.cnt').text(valueCheckedLen);
+                location.href="/FarmEasy/check_score.do?m_score="+valueCheckedLen;
+                e.preventDefault();
+              
             }else{
                 alert((len-checkedLen)+"개의 질문에 입력을 하지 않았습니다. ")
             }
         }
         });
       });
+        
+        $(document).ready(function(){
+            $('#a_click_nonMember').on({
+                click:function(e){
+                var checkedLen = $('input:checked').length;
+                var valueCheckedLen = $('input[value="Y"]:checked').length;
+                if(len == checkedLen){
+                    $('.cnt').text(valueCheckedLen);
+                    e.preventDefault();
+                }else{
+                    alert((len-checkedLen)+"개의 질문에 입력을 하지 않았습니다. ")
+                }
+            }
+            });
+          });
+            
+
+        
+        
+        
 </script>
 </head>
 <body>
@@ -90,6 +114,7 @@
 <div class="wd-basic-960 mb-auto mt-5 mb-4" id="check_score">
     <h4 class="mb-4">귀농 단계별 체크리스트</h4>
     <p>· 귀농 단계별 체크리스트를 작성하여 단계별 부족한 점을 보완하여 효율적인 귀농계획을 수립하도록 합니다.</p>
+    <p style="color:tomato; font-weight:700;">**비회원은 점수가 저장되지 않습니다.**</p>
     <form>
       <table>
           <tr>
@@ -356,8 +381,27 @@
   </div>
 
   <div class="wd-basic-960 mb-auto click-wrap">
-    <p id="a_click_name"><a href="#none" id="a_click">결과값 확인</a></p>
-    <p id="cnt_name">자가 진단 점수는 총 <span class="cnt">00</span>점입니다.</p>
+  	<form id="check_score" name="check_score" >
+
+    	<c:choose>
+    		<c:when test="${sessionScope.m_id eq null}">
+    		  <input type="submit" value="결과값 확인" id="a_click_nonMember">
+    			비회원입니다.
+    			<p class="cnt_name">자가 진단 점수는 총 <input type="hidden" name="cnt">
+    			<span class="cnt">00</span>점입니다.</p>
+    		</c:when>
+    		<c:when test="${m_score eq null}">
+    		   	<input type="submit" value="결과값 확인" id="a_click">
+    		   		<p class="cnt_name">자가 진단 점수는 총 <input type="hidden" name="cnt">
+    			<span>00</span>점입니다.</p>
+    		</c:when>
+    		<c:otherwise>
+    		   	<input type="submit" value="결과값 확인" id="a_click">
+    		   		<p class="cnt_name">자가 진단 점수는 총 <input type="hidden" name="cnt">
+    			<span> ${m_score} </span>점입니다.</p>
+    		</c:otherwise>
+    	</c:choose>
+    </form>
   </div>
   
   

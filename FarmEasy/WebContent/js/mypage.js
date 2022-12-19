@@ -1,4 +1,7 @@
 
+
+//탭 메뉴
+
 function openCity(evt, cityName) {
   var i, tabcontent, tablinks;
   tabcontent = document.getElementsByClassName("tabcontent");
@@ -19,12 +22,14 @@ function openCity(evt, cityName) {
 // Get the element with id="defaultOpen" and click on it
 document.getElementById("defaultOpen").click();
 
+//새로고침 이벤트 막기
 function handleSubmit(event) {
 	  event.preventDefault()
 	  value = '' ;
 	}
 
 
+//엔터시 새로고침 안되게!
 var name1 = document.getElementbyId('myPage_form');
 name1.addEventListener('submit', handleSubmit);
 
@@ -43,15 +48,20 @@ document.myPage_edit_form.addEventListener("keydown", evt => {
 	  evt.preventDefault();
 	});
 
+
+
 function submitFunction(){
 	
 	var myPage_edit = document.getElementById('myPage_edit');
 	var myPage_update = document.getElementById('myPage_update');
 	var hidden_btn = document.getElementsByClassName('hidden_btn');
-	
+
+	//입력된 비밀번호	
 	var pw = myPage_edit_form.m_pw.value;
+	//세션에 저장된 비밀번호
 	var pw_session = myPage_edit_form.pw_session.value;
 
+//	myPage_edit 정보 수정 js
 	
 	if(pw != pw_session){
 		alert('비밀번호가 틀립니다.');
@@ -62,7 +72,10 @@ function submitFunction(){
 		event.preventDefault();
 		return true;
 	}
+	
+
 }
+
 
 //function captureReturnKey(e) { 
 //    if(e.keyCode == 13 && e.srcElement.type != 'textarea') 

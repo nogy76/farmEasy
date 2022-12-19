@@ -68,6 +68,28 @@
       }
  
 
+/* 자기진단 점수 업데이트 */
+
+	.myPage_score{
+		margin: 4rem 0 7rem 0;
+		font-size:1.1rem;
+		letter-spacing: -0.2px;
+	}
+
+	.myPage_score a{
+		background: #ddd;
+		color: #222;
+		border-radius: 20px;
+		padding : 8px 13px;
+		font-size:1rem;
+		margin-left:10px;
+	}
+	
+	.myPage_score span{
+		color:tomato;
+	}
+
+
 
     .myPage_hi {
         display: flex;
@@ -264,5 +286,7 @@
         color: #fff;
         cursor: pointer;
   	}
+  	
+  	
 
 

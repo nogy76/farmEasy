@@ -5,6 +5,8 @@ import java.sql.*;
 import java.util.*;
 import javax.sql.*;
 
+import sun.security.mscapi.CKeyPairGenerator.RSA;
+
 public class MemberDao {
 
 	public static final int MEMBER_NONEXISTENT = 0;
@@ -70,8 +72,9 @@ public class MemberDao {
 				String mobile = rs.getString("m_mobile");
 				String authority = rs.getString("m_authority");
 				String date = rs.getString("m_date");
+				String score = rs.getString("m_score");
 				
-				memberList.add(new MemberDto(seq, name, id, pw, email, mobile, authority, date));
+				memberList.add(new MemberDto(seq, name, id, pw, email, mobile, authority, date,score));
 			}
 		}catch(SQLException e) {
 			System.out.println("getMemberList() 예외 발생!!");
@@ -226,7 +229,13 @@ public class MemberDao {
 		//이것도 저것도 아니다 
 	}
 	
-	//아이디체크
+	
+	
+	// -------------------------
+	// ------ 아이디 체크 ---------
+	// -------------------------
+	
+	
 	public int checkId(String id) {
 		
 		int ri=0;
@@ -275,7 +284,45 @@ public class MemberDao {
 	}
 	
 	
-	// 로그인
+	// -------------------------
+	// -------- 점수 체크 ---------
+	// -------------------------
+	public boolean checkScore(MemberDto memberDto) {
+				
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement("update TB_MEMBER set m_score=? where m_seq=?");
+			pstmt.setString(1, memberDto.getM_score());			
+			pstmt.setInt(2, memberDto.getM_seq());	
+			
+			pstmt.executeUpdate();
+			
+		} catch(SQLException e) {
+			System.out.println("checkScore() 예외 발생!!");
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				conn.close();
+			}
+			catch(Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return true;
+	}
+	
+	
+	
+	
+	
+	// -------------------------
+	// --------- 로그인 ----------
+	// -------------------------
+	
 	public MemberDto login(MemberDto memberDto) {
 		
 		Connection conn = null;
@@ -312,10 +359,11 @@ public class MemberDao {
 					String mobile = rs.getString("m_mobile");
 					String authority = rs.getString("m_authority");
 					String date = rs.getString("m_date");
+					String score = rs.getString("m_score");
 					
 					System.out.printf("아이디  : %s ", id);
 					
-					memberDto = new MemberDto(m_seq, name , id, pw, email, mobile, authority, date);
+					memberDto = new MemberDto(m_seq, name , id, pw, email, mobile, authority, date, score);
 
 					//로그인 성공 아이디 패스워드가 맞다면
 			} 
@@ -334,6 +382,10 @@ public class MemberDao {
 		return memberDto; 
 	}
 	
+	
+	// -------------------------
+	// -------- 회원가입 ---------
+	// -------------------------
 	
 	public int insertMember(MemberDto memberDto){
 		int ri = 0;
@@ -369,7 +421,6 @@ public class MemberDao {
 	
 	
 	
-	
 	public MemberDto readById(int m_seq) {
 		MemberDto memberDto = new MemberDto();
 		
@@ -394,8 +445,11 @@ public class MemberDao {
 			String mobile = rs.getString("m_mobile");
 			String authority = rs.getString("m_authority");
 			String date = rs.getString("m_date");
+			String score = rs.getString("m_score");
 			
-			memberDto = new MemberDto(m_seq, id, name ,pw, email, mobile, authority, date);
+			System.out.printf("아이디  : %s ", id);
+			
+			memberDto = new MemberDto(m_seq, name , id, pw, email, mobile, authority, date, score);
 			
 		} catch(SQLException e) {
 			System.out.println("readById() 예외 발생!!");
@@ -413,7 +467,12 @@ public class MemberDao {
 		return memberDto;
 	}
 	
-	//업데이트
+	
+	
+	// -------------------------
+	// -------- 회원 수정 ---------
+	// -------------------------
+	
 	public void updateMember(int m_seq, MemberDto memberDto) {
 		
 		Connection conn = null;
@@ -421,20 +480,16 @@ public class MemberDao {
 		
 		try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement("update TB_MEMBER set m_name=?, m_id=?, m_pw=?, M_email=?, M_mobile=?, M_authority=?, M_date=?where m_seq="+m_seq);
+			pstmt = conn.prepareStatement("update TB_MEMBER set m_pw=?, M_email=?, M_mobile=?where m_seq="+m_seq);
 			
-			pstmt.setString(1, memberDto.getM_name());
-			pstmt.setString(2, memberDto.getM_Id());
-			pstmt.setString(3, memberDto.getM_pw());
-			pstmt.setString(4, memberDto.getM_email());
-			pstmt.setString(5, memberDto.getM_mobile());
-			pstmt.setString(6, memberDto.getM_authority());
-			pstmt.setString(7, memberDto.getM_date());
-			
+			pstmt.setString(1, memberDto.getM_pw());
+			pstmt.setString(2, memberDto.getM_email());
+			pstmt.setString(3, memberDto.getM_mobile());
 			
 			pstmt.executeUpdate();
+			
 		} catch(SQLException e) {
-			System.out.println("updateAddr() 예외 발생!!");
+			System.out.println("updateMember() 예외 발생!!");
 			e.printStackTrace();
 		} finally {
 			try {
@@ -446,16 +501,35 @@ public class MemberDao {
 		}
 	}
 	
-	public void deleteMember(int m_seq) {
+	
+	
+	// -------------------------
+	// -------- 회원 탈퇴 ---------
+	// -------------------------
+	
+	public boolean deleteMember(int m_seq,String m_pw) {
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
+		PreparedStatement pstmt1 = null;
+		ResultSet rs = null;
 		
 		try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement("DELETE FROM TB_MEMBER WHERE m_seq="+m_seq);
 			
-			pstmt.executeUpdate();
+			pstmt1 = conn.prepareStatement("select * from TB_MEMBER WHERE m_seq=? and M_PW=?");
+			pstmt1.setInt(1, m_seq); // 1번 물음표에 m_id가 들어감
+			pstmt1.setString(2, m_pw);
+			rs = pstmt1.executeQuery();
+
+			
+			if (rs.next()) {	
+				pstmt = conn.prepareStatement("DELETE FROM TB_MEMBER WHERE m_seq="+m_seq);
+				pstmt.executeUpdate();
+				return true;
+			} else {
+				return false;
+			}
 		}catch(SQLException e) {
 			System.out.println("deleteAddr() 예외 발생!!");
 			e.printStackTrace();
@@ -467,6 +541,7 @@ public class MemberDao {
 				e2.printStackTrace();
 			}
 		}
+		return false;
 	}
 	
 }

@@ -18,7 +18,7 @@
 	<div class="main-wrap">
 		<header>
 			<div class="logo-wrap">
-				<h1>로그인</h1>
+				<h1><a href="index.jsp">로그인</a></h1>
 			</div>
 		</header>
 		<form action="memberLogin.do" name="login_check" id="login_check" >
